@@ -6,9 +6,10 @@
     "Bootstrap Element": "Bootstrap Element",
     "Bootstrap Grid": "Bootstrap Grid",
     "Component": "Component",
+    "Recolher": "Recolher",
     "Menu": "Menu",
     "Submenu": "Submenu",
-    "Blank Page": "Blank Page",
+    "Pagina em branco": "Pagina em branco",
     "Mais Temas": "More Themes",
     "Baixar agora": "Download Now",
     "Idioma": "Idioma",
@@ -24,10 +25,10 @@
     "Configurações" : "Settings",
     "Perfil" : "Perfil",
     "Produto" : "Produto",
-    "Mensagem" : "Inbox",
-    "Sair" : "Log Out",
-    "Conversas pendentes" : "Pending Task",
+    "Mensagem" : "Mensagem",
+    "Sair" : "Sair",
+    "Conversas pendentes" : "Conversas pendentes",
     "In queue" : "In queue",
-    "Email" : "Mail",
-    "Visualizar todos" : "View All"
+    "Email" : "Email",
+    "Visualizar todos" : "Visualizar todos"
 }

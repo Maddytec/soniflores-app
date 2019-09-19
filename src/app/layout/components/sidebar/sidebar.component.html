@@ -2,7 +2,7 @@
     <div class="list-group">
         <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-dashboard"></i>&nbsp;
-            <span>{{ 'Dashboard' | translate }}</span>
+            <span>{{ 'Principal' | translate }}</span>
         </a>
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('pages_cliente')">
@@ -102,22 +102,22 @@
 
         <div class="header-fields">
             <a (click)="rltAndLtr()" class="list-group-item">
-                <span><i class="fa fa-arrows-h"></i>&nbsp; RTL/LTR</span>
+                <span><i class="fa fa-arrows-h"></i>&nbsp; D/E</span>
             </a>
             <div class="nested-menu">
                 <a class="list-group-item" (click)="addExpandClass('languages')">
-                    <span><i class="fa fa-language"></i>&nbsp; {{ 'Language' | translate }} <b class="caret"></b></span>
+                    <span><i class="fa fa-language"></i>&nbsp; {{ 'Idioma' | translate }} <b class="caret"></b></span>
                 </a>
                 <li class="nested" [class.expand]="showMenu === 'languages'">
                     <ul class="submenu">
                         <li>
                             <a href="javascript:void(0)" (click)="changeLang('pt')">
-                                {{ 'Portugues' | translate }}
+                                {{ 'Português' | translate }}
                             </a>
                         </li>
                         <li>
                             <a href="javascript:void(0)" (click)="changeLang('en')">
-                                {{ 'IngLês' | translate }}
+                                {{ 'Inglês' | translate }}
                             </a>
                         </li>
                         <li>
@@ -161,7 +161,7 @@
                     <ul class="submenu">
                         <li>
                             <a href="javascript:void(0)">
-                                <span><i class="fa fa-fw fa-user"></i> {{ 'Profile' | translate }}</span>
+                                <span><i class="fa fa-fw fa-user"></i> {{ 'Perfil' | translate }}</span>
                             </a>
                         </li>
                         <li>
@@ -171,12 +171,12 @@
                         </li>
                         <li>
                             <a href="javascript:void(0)">
-                                <span><i class="fa fa-fw fa-gear"></i> {{ 'Settings' | translate }}</span>
+                                <span><i class="fa fa-fw fa-gear"></i> {{ 'Configuração' | translate }}</span>
                             </a>
                         </li>
                         <li>
                             <a [routerLink]="['/login']" (click)="onLoggedout()">
-                                <span><i class="fa fa-fw fa-power-off"></i> {{ 'Log Out' | translate }}</span>
+                                <span><i class="fa fa-fw fa-power-off"></i> {{ 'Sair' | translate }}</span>
                             </a>
                         </li>
                     </ul>
@@ -186,6 +186,6 @@
     </div>
     <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
         <i class="fa fa-fw fa-angle-double-left"></i>&nbsp;
-        <span>{{ 'Collapse Sidebar' | translate }}</span>
+        <span>{{ 'Recolher' | translate }}</span>
     </div>
 </nav>

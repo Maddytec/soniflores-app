@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -9,6 +8,12 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
+
+import {NgModule, LOCALE_ID} from '@angular/core';
+import localept from '@angular/common/locales/pt';
+import {HashLocationStrategy, LocationStrategy, registerLocaleData} from '@angular/common';
+registerLocaleData(localept, 'pt');
+
 
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
@@ -37,7 +42,8 @@ export const createTranslateLoader = (http: HttpClient) => {
         AppRoutingModule
     ],
     declarations: [AppComponent],
-    providers: [AuthGuard],
+    providers: [AuthGuard, {provide: LOCALE_ID, useValue: 'pt'}],
     bootstrap: [AppComponent]
+    
 })
 export class AppModule {}
