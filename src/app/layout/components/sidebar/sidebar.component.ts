@@ -15,10 +15,10 @@ export class SidebarComponent {
 
     @Output() collapsedEvent = new EventEmitter<boolean>();
     constructor(private translate: TranslateService, public router: Router) {
-        this.translate.addLangs(['en', 'fr', 'ur', 'es', 'it', 'fa', 'de']);
-        this.translate.setDefaultLang('en');
+        this.translate.addLangs(['pt','en', 'fr', 'ur', 'es', 'it', 'fa', 'de']);
+        this.translate.setDefaultLang('pt');
         const browserLang = this.translate.getBrowserLang();
-        this.translate.use(browserLang.match(/en|fr|ur|es|it|fa|de/) ? browserLang : 'en');
+        this.translate.use(browserLang.match(/pt|en|fr|ur|es|it|fa|de/) ? browserLang : 'pt');
 
         this.router.events.subscribe(val => {
             if (

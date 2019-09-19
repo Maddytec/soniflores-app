@@ -12,19 +12,22 @@
             <li class="nested" [class.expand]="showMenu === 'pages_cliente'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']"
+                            class="list-group-item">
                             <i class="fa fa-fw fa-edit"></i>&nbsp;
                             <span>{{ 'Cadastrar cliente' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']"
+                            class="list-group-item">
                             <i class="fa fa-fw fa-edit"></i>&nbsp;
                             <span>{{ 'Editar cliente' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']"
+                            class="list-group-item">
                             <i class="fa fa-fw fa-edit"></i>&nbsp;
                             <span>{{ 'Consultar cliente' | translate }}</span>
                         </a>
@@ -41,19 +44,22 @@
             <li class="nested" [class.expand]="showMenu === 'pages_pedido'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']"
+                            class="list-group-item">
                             <i class="fa fa-fw fa-edit"></i>&nbsp;
                             <span>{{ 'Novo pedido' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']"
+                            class="list-group-item">
                             <i class="fa fa-fw fa-edit"></i>&nbsp;
                             <span>{{ 'Editar pedido' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']"
+                            class="list-group-item">
                             <i class="fa fa-fw fa-edit"></i>&nbsp;
                             <span>{{ 'Consultar pedido' | translate }}</span>
                         </a>
@@ -70,19 +76,22 @@
             <li class="nested" [class.expand]="showMenu === 'pages'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']"
+                            class="list-group-item">
                             <i class="fa fa-fw fa-edit"></i>&nbsp;
                             <span>{{ 'Cadastrar produto' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']"
+                            class="list-group-item">
                             <i class="fa fa-fw fa-edit"></i>&nbsp;
                             <span>{{ 'Editar produto' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']"
+                            class="list-group-item">
                             <i class="fa fa-fw fa-edit"></i>&nbsp;
                             <span>{{ 'Consultar produto' | translate }}</span>
                         </a>
@@ -90,7 +99,7 @@
                 </ul>
             </li>
         </div>
-        
+
         <div class="header-fields">
             <a (click)="rltAndLtr()" class="list-group-item">
                 <span><i class="fa fa-arrows-h"></i>&nbsp; RTL/LTR</span>
@@ -102,13 +111,18 @@
                 <li class="nested" [class.expand]="showMenu === 'languages'">
                     <ul class="submenu">
                         <li>
+                            <a href="javascript:void(0)" (click)="changeLang('pt')">
+                                {{ 'Portugues' | translate }}
+                            </a>
+                        </li>
+                        <li>
                             <a href="javascript:void(0)" (click)="changeLang('en')">
-                                {{ 'English' | translate }}
+                                {{ 'IngLês' | translate }}
                             </a>
                         </li>
                         <li>
                             <a href="javascript:void(0)" (click)="changeLang('fr')">
-                                {{ 'French' | translate }}
+                                {{ 'Francês' | translate }}
                             </a>
                         </li>
                         <li>
@@ -118,22 +132,22 @@
                         </li>
                         <li>
                             <a href="javascript:void(0)" (click)="changeLang('es')">
-                                {{ 'Spanish' | translate }}
+                                {{ 'Espanhol' | translate }}
                             </a>
                         </li>
                         <li>
                             <a href="javascript:void(0)" (click)="changeLang('it')">
-                                {{ 'Italian' | translate }}
+                                {{ 'Italiano' | translate }}
                             </a>
                         </li>
                         <li>
                             <a href="javascript:void(0)" (click)="changeLang('fa')">
-                                {{ 'Farsi' | translate }}
+                                {{ 'Persa' | translate }}
                             </a>
                         </li>
                         <li>
                             <a href="javascript:void(0)" (click)="changeLang('de')">
-                                {{ 'German' | translate }}
+                                {{ 'Alemão' | translate }}
                             </a>
                         </li>
                     </ul>
