@@ -1,14 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedService } from './shared/services/shared.service';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
+    showTemplate: boolean = false;
+
+public shared: SharedService;
+    
     constructor() {
+    this.shared = SharedService.getInstance();
     }
 
-    ngOnInit() {
+    ngOnInit(){
+        this.shared.showTemplate.subscribe(
+            show => this.showTemplate = show
+        );
     }
 }
