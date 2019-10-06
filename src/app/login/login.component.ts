@@ -5,8 +5,6 @@ import { User } from '../shared/model/user.model';
 import { SharedService } from '../shared/services/shared.service';
 import { UserService } from '../shared/services/user.service';
 import { CurrentUser } from '../shared/model/current-user.model';
-import { FormsModule } from '@angular/forms';
-import { BootstrapOptions } from '@angular/core/src/application_ref';
 
 @Component({
     selector: 'app-login',
@@ -16,8 +14,8 @@ import { BootstrapOptions } from '@angular/core/src/application_ref';
 })
 export class LoginComponent {
 
-    name: string = "Madson"
-    user = new User('', '', '', '');
+    name: string = '';
+    user = new User('', '', '', '','');
     shared: SharedService;
     message: string;
 
@@ -31,8 +29,8 @@ export class LoginComponent {
     onLoggedin() {
         this.message = '';
         this.userService.login(this.user).subscribe((userAuthentication: CurrentUser) => {
-            this.shared.password = userAuthentication.password;
-            this.shared.user = new User(null, userAuthentication.email, userAuthentication.password, userAuthentication.role)
+            this.shared.password = 'Bearer ' + userAuthentication.password;
+            this.shared.user = new User(null,null, userAuthentication.email, userAuthentication.password, userAuthentication.role)
             this.shared.showTemplate.emit(true);
             this.router.navigate(['/']);
         }, err => {

@@ -16,6 +16,7 @@ import { UserService } from './shared/services/user.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './login/auth.interceptor';
 import { SharedService } from './shared/services/shared.service';
+import { UserComponent } from './layout/user/user.component';
 registerLocaleData(localept, 'pt');
 
 

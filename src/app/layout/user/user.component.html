@@ -1,0 +1,69 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Cadastro de usuario'" [icon]="'fa-edit'"></app-page-header>
+    
+    <div class="row justify-content-md-center">
+            <div class="col-lg-4">
+            <form #form="ngForm">
+                <div [ngClass]="classCss" role="alert" *ngIf="message">
+                    <strong>{{ message.text }}</strong>
+                </div> 
+                <div class="form-content">
+                        <div [ngClass]="getFormGroupClass(name.invalid, name.dirty)">
+                                <input 
+                                    type="text"
+                                    name="name"
+                                    [(ngModel)]="user.name"
+                                    class="form-control input-underline input-lg" 
+                                    id="name"
+                                    #name="ngModel" 
+                                    placeholder="Nome"
+                                    required>
+                                <span class="help-block" *ngIf="name.invalid && name.dirty">Nome obrigatorio</span>
+                            </div>
+
+                    <div [ngClass]="getFormGroupClass(email.invalid, email.dirty)">
+                        <input 
+                            type="email"
+                            name="email"
+                            [(ngModel)]="user.email"
+                            class="form-control input-underline input-lg" 
+                            id="email"
+                            #email="ngModel" 
+                            placeholder="Email"
+                            email>
+                        <span class="help-block" *ngIf="email.invalid && email.dirty">Email invalido</span>
+                    </div>
+
+                    <div [ngClass]="getFormGroupClass(password.invalid, password.dirty)">
+                        <input 
+                            type="password" 
+                            name="password" 
+                            [(ngModel)]="user.password"
+                            #password="ngModel" 
+                            class="form-control input-underline input-lg" 
+                            id="password" 
+                            placeholder="Senha"
+                            required>
+                            <span class="help-block" *ngIf="password.invalid && password.dirty">Senha invalida</span>
+                    </div>
+                    <div [ngClass]="getFormGroupClass(role.invalid, role.dirty)">
+                        <select 
+                            [(ngModel)]="user.role" 
+                            class="form-control select2" 
+                            id="role" 
+                            name="role" 
+                            #role="ngModel"
+                            required>
+                            <option value="" [ngValue]="undefined" disabled>SELECIONE</option>
+                            <option>ADMINISTRATOR</option>
+                            <option>SIMPLE</option>
+                            </select>
+                            <span class="help-block" *ngIf="role.invalid && role.dirty">Perfil é obrigatório</span>
+                    </div>
+                </div>
+                <button type="button" [disabled]="form.invalid" class="btn btn-primary" (click)="register()">Cadastrar</button>
+                &nbsp;
+            </form>
+        </div>
+    </div>
+</div>

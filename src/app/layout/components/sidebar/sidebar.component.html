@@ -100,6 +100,38 @@
             </li>
         </div>
 
+        <div class="nested-menu">
+                <a class="list-group-item" (click)="addExpandClass('pages_usuarios')">
+                    <i class="fa fa-plus"></i>&nbsp;
+                    <span>{{ 'Usuario' | translate }}</span>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'pages_usuarios'">
+                    <ul class="submenu">
+                        <li>
+                            <a [routerLink]="['/users']" [routerLinkActive]="['router-link-active']"
+                                class="list-group-item">
+                                <i class="fa fa-fw fa-edit"></i>&nbsp;
+                                <span>{{ 'Cadastrar usuario' | translate }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['/users']" [routerLinkActive]="['router-link-active']"
+                                class="list-group-item">
+                                <i class="fa fa-fw fa-edit"></i>&nbsp;
+                                <span>{{ 'Editar usuario' | translate }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['/users']" [routerLinkActive]="['router-link-active']"
+                                class="list-group-item">
+                                <i class="fa fa-fw fa-edit"></i>&nbsp;
+                                <span>{{ 'Consultar usuario' | translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+
         <div class="header-fields">
             <a (click)="rltAndLtr()" class="list-group-item">
                 <span><i class="fa fa-arrows-h"></i>&nbsp; D/E</span>

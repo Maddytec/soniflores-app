@@ -17,7 +17,7 @@ export class UserService {
       return this.http.put(`${API_SONIFLORES}/users`, user);
     } else {
       user.id = null;
-      this.http.post(`${API_SONIFLORES}/users`, user);
+      return this.http.post(`${API_SONIFLORES}/users`, user);
     }
   }
 
