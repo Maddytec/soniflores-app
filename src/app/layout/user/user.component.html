@@ -54,9 +54,9 @@
                             name="role" 
                             #role="ngModel"
                             required>
-                            <option value="" [ngValue]="undefined" disabled>SELECIONE</option>
-                            <option>ADMINISTRATOR</option>
-                            <option>SIMPLE</option>
+                            <option value="" [ngValue]="undefined" disabled>Selecione</option>
+                            <option value="ADMINISTRATOR">Administrador</option>
+                            <option value="SIMPLE">Basico</option>
                             </select>
                             <span class="help-block" *ngIf="role.invalid && role.dirty">Perfil é obrigatório</span>
                     </div>

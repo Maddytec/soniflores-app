@@ -55,11 +55,12 @@ export class UserComponent implements OnInit {
 
   register() {
     this.message = {};
-    this.userService.createOrUpdate(this.user).subscribe((userAuthentication: CurrentUser) => {
-       this.form.resetForm();
+    this.userService.createOrUpdate(this.user).subscribe((user: User) => {
+      this.user = new User('','','','','');
+      this.form.resetForm();
        this.showMessage({
        type: 'success',
-       text: `Registered ${userAuthentication.email} successfully`
+       text: `Registered ${user.email} successfully`
       });
     }, err => {
       this.showMessage({
