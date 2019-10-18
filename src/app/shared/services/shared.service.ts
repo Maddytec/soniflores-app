@@ -6,7 +6,7 @@ export class SharedService {
 
   public static instance: SharedService = null;
   user: User;
-  password: string;
+  senha: string;
   showTemplate = new EventEmitter<boolean>();
 
   constructor() {

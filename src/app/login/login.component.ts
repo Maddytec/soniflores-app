@@ -15,7 +15,7 @@ import { CurrentUser } from '../shared/model/current-user.model';
 export class LoginComponent {
 
     name: string = '';
-    user = new User('', '', '', '','');
+    user = new User('', '', '', '',null);
     shared: SharedService;
     message: string;
 
@@ -29,12 +29,12 @@ export class LoginComponent {
     onLoggedin() {
         this.message = '';
         this.userService.login(this.user).subscribe((userAuthentication: CurrentUser) => {
-            this.shared.password = 'Bearer ' + userAuthentication.password;
-            this.shared.user = new User(null,null, userAuthentication.email, userAuthentication.password, userAuthentication.role)
+            this.shared.senha = 'Bearer ' + userAuthentication.senha;
+            this.shared.user = new User(null,null, userAuthentication.email, userAuthentication.senha, userAuthentication.grupos)
             this.shared.showTemplate.emit(true);
             this.router.navigate(['/']);
         }, err => {
-            this.shared.password = null;
+            this.shared.senha = null;
             this.shared.user = null;
             this.shared.showTemplate.emit(false);
             this.message = 'Erro';

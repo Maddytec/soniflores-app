@@ -21,17 +21,17 @@
                         <span class="help-block" *ngIf="email.invalid && email.dirty">Email invalido</span>
                     </div>
 
-                    <div [ngClass]="getFormGroupClass(password.invalid, password.dirty)">
+                    <div [ngClass]="getFormGroupClass(senha.invalid, senha.dirty)">
                         <input 
                             type="password" 
-                            name="password" 
-                            [(ngModel)]="user.password"
-                            #password="ngModel" 
+                            name="senha" 
+                            [(ngModel)]="user.senha"
+                            #senha="ngModel" 
                             class="form-control input-underline input-lg" 
-                            id="password" 
+                            id="senha" 
                             placeholder="Senha"
                             required>
-                            <span class="help-block" *ngIf="password.invalid && password.dirty">Senha invalida</span>
+                            <span class="help-block" *ngIf="senha.invalid && senha.dirty">Senha invalida</span>
                     </div>
                 </div>
                 <a class="btn rounded-btn" type="submit" [routerLink]="['/dashboard']" (click)="onLoggedin()"> Entrar </a>

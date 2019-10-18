@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { User } from '../../shared/model/user.model';
-import { SharedService } from '../../shared/services/shared.service';
-import { UserService } from '../../shared/services/user.service';
 import { ActivatedRoute } from '@angular/router';
-import { ResponseApi } from '../../shared/model/response-api';
-import { routerTransition } from '../../router.animations';
-import { CurrentUser } from '../../shared/model/current-user.model';
+import { ResponseApi } from '../../../shared/model/response-api';
+import { routerTransition } from '../../../router.animations';
+import { User } from '../../../shared/model/user.model';
+import { SharedService } from '../../../shared/services/shared.service';
+import { UserService } from '../../../shared/services/user.service';
+import { Grupo } from '../../../shared/model/grupo.model';
+import { element } from '@angular/core/src/render3/instructions';
 
 @Component({
   selector: 'app-user',
@@ -20,7 +21,11 @@ export class UserComponent implements OnInit {
   @ViewChild("form")
   form: NgForm;
 
-  user = new User('', '', '', '','');
+  i: number = 0;
+  listaPerfil: Array<Grupo> = new Array<Grupo>();
+  user = new User('', '', '', '', new Array());
+  grupo: Grupo;
+  grupos: Array<Grupo>;
 
   shared: SharedService;
   message: {};
@@ -42,8 +47,7 @@ export class UserComponent implements OnInit {
 
   findById(id: string) {
     this.userService.findById(id).subscribe((responseApi: ResponseApi) => {
-      this.user = responseApi.data;
-      this.user.password = '';
+      this.user = new User(responseApi['id'], responseApi['nome'], responseApi['email'],'', responseApi['grupos']);
     },
       err => {
         this.showMessage({
@@ -55,12 +59,22 @@ export class UserComponent implements OnInit {
 
   register() {
     this.message = {};
-    this.userService.createOrUpdate(this.user).subscribe((user: User) => {
-      this.user = new User('','','','','');
+    this.listaPerfil;
+    this.grupos = new Array();
+
+    this.listaPerfil.forEach(element => {
+      this.grupo = new Grupo('','','');
+      this.grupo.nome = element.toString();
+      this.user.grupos.push(this.grupo);
+    });
+    this.message = {};
+    this.userService.createOrUpdate(this.user).subscribe((responseApi: ResponseApi) => {
+      this.user = new User('','','','', new Array());
+      let email: string = responseApi['email'];
       this.form.resetForm();
-       this.showMessage({
-       type: 'success',
-       text: `Registered ${user.email} successfully`
+      this.showMessage({
+        type: 'success',
+        text: `Usuário ${email} cadastrado com sucesso`
       });
     }, err => {
       this.showMessage({
@@ -75,7 +89,7 @@ export class UserComponent implements OnInit {
     this.buildClasses(message.type);
     setTimeout(() => {
       this.message = undefined;
-    }, 8000);
+    }, 5000);
   }
 
   private buildClasses(type: string): void {

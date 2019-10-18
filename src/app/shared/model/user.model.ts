@@ -1,13 +1,14 @@
 import { ResponseApi } from "./response-api";
+import { Grupo } from "./grupo.model";
 
 export class User {
 
     constructor(
         public id: string,
-        public name: string,
+        public nome: string,
         public email: string,
-        public password: string,
-        public role: string
+        public senha: string,
+        public grupos: Array<Grupo>
     ) {
     }
 }

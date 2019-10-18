@@ -13,10 +13,10 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import localept from '@angular/common/locales/pt';
 import { HashLocationStrategy, LocationStrategy, registerLocaleData } from '@angular/common';
 import { UserService } from './shared/services/user.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule} from '@angular/forms';
 import { AuthInterceptor } from './login/auth.interceptor';
 import { SharedService } from './shared/services/shared.service';
-import { UserComponent } from './layout/user/user.component';
+import { DialogService } from './dialog.service';
 registerLocaleData(localept, 'pt');
 
 
@@ -52,6 +52,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         UserService,
         AuthGuard,
         SharedService,
+        DialogService,
         { provide: LOCALE_ID, useValue: 'pt' },
         {
             provide: HTTP_INTERCEPTORS,

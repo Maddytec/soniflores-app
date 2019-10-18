@@ -8,17 +8,17 @@
                     <strong>{{ message.text }}</strong>
                 </div> 
                 <div class="form-content">
-                        <div [ngClass]="getFormGroupClass(name.invalid, name.dirty)">
+                        <div [ngClass]="getFormGroupClass(nome.invalid, nome.dirty)">
                                 <input 
                                     type="text"
-                                    name="name"
-                                    [(ngModel)]="user.name"
+                                    name="nome"
+                                    [(ngModel)]="user.nome"
                                     class="form-control input-underline input-lg" 
-                                    id="name"
-                                    #name="ngModel" 
+                                    id="nome"
+                                    #nome="ngModel" 
                                     placeholder="Nome"
                                     required>
-                                <span class="help-block" *ngIf="name.invalid && name.dirty">Nome obrigatorio</span>
+                                <span class="help-block" *ngIf="nome.invalid && nome.dirty">Nome obrigatorio</span>
                             </div>
 
                     <div [ngClass]="getFormGroupClass(email.invalid, email.dirty)">
@@ -34,31 +34,34 @@
                         <span class="help-block" *ngIf="email.invalid && email.dirty">Email invalido</span>
                     </div>
 
-                    <div [ngClass]="getFormGroupClass(password.invalid, password.dirty)">
+                    <div [ngClass]="getFormGroupClass(senha.invalid, senha.dirty)">
                         <input 
                             type="password" 
-                            name="password" 
-                            [(ngModel)]="user.password"
-                            #password="ngModel" 
+                            name="senha" 
+                            [(ngModel)]="user.senha"
+                            #senha="ngModel" 
                             class="form-control input-underline input-lg" 
-                            id="password" 
+                            id="senha" 
                             placeholder="Senha"
-                            required>
-                            <span class="help-block" *ngIf="password.invalid && password.dirty">Senha invalida</span>
+                            required >
+                            <span class="help-block" *ngIf="senha.invalid && senha.dirty">Senha invalida</span>
                     </div>
-                    <div [ngClass]="getFormGroupClass(role.invalid, role.dirty)">
+                    <div [ngClass]="getFormGroupClass(grupos.invalid, grupos.dirty)">
                         <select 
-                            [(ngModel)]="user.role" 
-                            class="form-control select2" 
-                            id="role" 
-                            name="role" 
-                            #role="ngModel"
+                            options="options" 
+                            show-search="true"
+                            multiple 
+                            [(ngModel)]="listaPerfil" 
+                            id="listaPerfil" 
+                            name="listaPerfil" 
+                            #grupos="ngModel"
                             required>
                             <option value="" [ngValue]="undefined" disabled>Selecione</option>
-                            <option value="ADMINISTRATOR">Administrador</option>
-                            <option value="SIMPLE">Basico</option>
+                            <option value="ADMINISTRADORES">Administradores</option>
+                            <option value="VENDEDORES">Vendedores</option>
+                            <option value="VENDAS-CONSULTA">Consulta</option>
                             </select>
-                            <span class="help-block" *ngIf="role.invalid && role.dirty">Perfil é obrigatório</span>
+                            <span class="help-block" *ngIf="grupos.invalid && grupos.dirty">Perfil é obrigatório</span>
                     </div>
                 </div>
                 <button type="button" [disabled]="form.invalid" class="btn btn-primary" (click)="register()">Cadastrar</button>

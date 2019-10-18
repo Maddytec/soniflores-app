@@ -1,7 +1,8 @@
 import { User } from "./user.model";
+import { Grupo } from "./grupo.model";
 
 export class CurrentUser {
-    public password: string;
+    public senha: string;
     public email: string;
-    public role: string;
+    public grupos: Array<Grupo>;
 }
