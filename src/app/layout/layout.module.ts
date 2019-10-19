@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms';
         LayoutRoutingModule,
         TranslateModule,
         FormsModule,
-        NgbDropdownModule.forRoot()
+        NgbDropdownModule
     ],
     declarations: [LayoutComponent, SidebarComponent, HeaderComponent]
 })

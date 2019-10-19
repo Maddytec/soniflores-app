@@ -7,7 +7,6 @@ import { User } from '../../../shared/model/user.model';
 import { SharedService } from '../../../shared/services/shared.service';
 import { UserService } from '../../../shared/services/user.service';
 import { Grupo } from '../../../shared/model/grupo.model';
-import { element } from '@angular/core/src/render3/instructions';
 
 @Component({
   selector: 'app-user',
@@ -17,9 +16,9 @@ import { element } from '@angular/core/src/render3/instructions';
 })
 export class UserComponent implements OnInit {
 
-
-  @ViewChild("form")
+  @ViewChild('form', {static: true}) 
   form: NgForm;
+  element: any;
 
   i: number = 0;
   listaPerfil: Array<Grupo> = new Array<Grupo>();
@@ -67,7 +66,6 @@ export class UserComponent implements OnInit {
       this.grupo.nome = element.toString();
       this.user.grupos.push(this.grupo);
     });
-    this.message = {};
     this.userService.createOrUpdate(this.user).subscribe((responseApi: ResponseApi) => {
       this.user = new User('','','','', new Array());
       let email: string = responseApi['email'];
