@@ -1,71 +1,47 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Cadastro de usuario'" [icon]="'fa-edit'"></app-page-header>
-    
+
     <div class="row justify-content-md-center">
-            <div class="col-lg-4">
-            <form #form="ngForm">
-                <div [ngClass]="classCss" role="alert" *ngIf="message">
-                    <strong>{{ message.text }}</strong>
-                </div> 
-                <div class="form-content">
-                        <div [ngClass]="getFormGroupClass(nome.invalid, nome.dirty)">
-                                <input 
-                                    type="text"
-                                    name="nome"
-                                    [(ngModel)]="user.nome"
-                                    class="form-control input-underline input-lg" 
-                                    id="nome"
-                                    #nome="ngModel" 
-                                    placeholder="Nome"
-                                    required>
-                                <span class="help-block" *ngIf="nome.invalid && nome.dirty">Nome obrigatorio</span>
-                            </div>
-
-                    <div [ngClass]="getFormGroupClass(email.invalid, email.dirty)">
-                        <input 
-                            type="email"
-                            name="email"
-                            [(ngModel)]="user.email"
-                            class="form-control input-underline input-lg" 
-                            id="email"
-                            #email="ngModel" 
-                            placeholder="Email"
-                            email>
-                        <span class="help-block" *ngIf="email.invalid && email.dirty">Email invalido</span>
+        <div class="col-md-12" style="text-align: center">
+                <form [formGroup]="usuarioForm" (ngSubmit)="register(usuarioForm.value)">
+                    <div [ngClass]="classCss" role="alert" *ngIf="message">
+                        <strong>{{ message.text }}</strong>
                     </div>
-
-                    <div [ngClass]="getFormGroupClass(senha.invalid, senha.dirty)">
-                        <input 
-                            type="password" 
-                            name="senha" 
-                            [(ngModel)]="user.senha"
-                            #senha="ngModel" 
-                            class="form-control input-underline input-lg" 
-                            id="senha" 
-                            placeholder="Senha"
-                            required >
-                            <span class="help-block" *ngIf="senha.invalid && senha.dirty">Senha invalida</span>
-                    </div>
-                    <div [ngClass]="getFormGroupClass(grupos.invalid, grupos.dirty)">
-                        <select 
-                            options="options" 
-                            show-search="true"
-                            multiple 
-                            [(ngModel)]="listaPerfil" 
-                            id="listaPerfil" 
-                            name="listaPerfil" 
-                            #grupos="ngModel"
-                            required>
-                            <option value="" [ngValue]="undefined" disabled>Selecione</option>
-                            <option value="ADMINISTRADORES">Administradores</option>
-                            <option value="VENDEDORES">Vendedores</option>
-                            <option value="VENDAS-CONSULTA">Consulta</option>
-                            </select>
-                            <span class="help-block" *ngIf="grupos.invalid && grupos.dirty">Perfil é obrigatório</span>
-                    </div>
+                <img src="assets/images/logo.png" height="40px" width="40px" class="user-avatar" />
+                <div class="container col-md-4">
+                    <mat-form-field>
+                        <input formControlName="nome" [(ngModel)]="nome" matInput placeholder="Nome">
+                        <mat-error *ngIf="usuarioForm.get('nome').dirty && !usuarioForm.get('nome').valid && usuarioForm.get('nome').touched">
+                            O nome é <strong>obrigatório</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input type="email" formControlName="email" [(ngModel)]="email" matInput placeholder="Email">
+                        <mat-error *ngIf="usuarioForm.get('email').dirty && !usuarioForm.get('email').valid && usuarioForm.get('email').touched">
+                            O Email é <strong>obrigatório.</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input type="password" formControlName="senha" [(ngModel)]="senha" matInput placeholder="Senha">
+                        <mat-error *ngIf="usuarioForm.get('senha').dirty && !usuarioForm.get('senha').valid && usuarioForm.get('senha').touched">
+                            A senha é <strong>obrigatória</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-select formControlName="grupos" [(ngModel)]="grupos" placeholder="Perfil do Usuário" multiple>
+                            <mat-option *ngFor="let grupo of listaPerfil" [value]="grupo">{{grupo.descricao}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="usuarioForm.get('grupos').dirty && !usuarioForm.get('grupos').valid && usuarioForm.get('grupos').touched">
+                            O perfil é <strong>obrigatório</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <td colspan="2" style="margin-top: 5px">
+                        <button mat-raised-button
+                            [disabled]="usuarioForm.invalid" 
+                            color="primary">Cadastrar</button>
+                    </td>
                 </div>
-                <button type="button" [disabled]="form.invalid" class="btn btn-primary" (click)="register()">Cadastrar</button>
-                &nbsp;
             </form>
         </div>
     </div>

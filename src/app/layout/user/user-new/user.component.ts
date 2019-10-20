@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ResponseApi } from '../../../shared/model/response-api';
 import { routerTransition } from '../../../router.animations';
@@ -7,6 +7,8 @@ import { User } from '../../../shared/model/user.model';
 import { SharedService } from '../../../shared/services/shared.service';
 import { UserService } from '../../../shared/services/user.service';
 import { Grupo } from '../../../shared/model/grupo.model';
+
+import { FormBuilder, FormGroup, Validators, FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-user',
@@ -16,28 +18,35 @@ import { Grupo } from '../../../shared/model/grupo.model';
 })
 export class UserComponent implements OnInit {
 
-  @ViewChild('form', {static: true}) 
-  form: NgForm;
-  element: any;
-
-  i: number = 0;
-  listaPerfil: Array<Grupo> = new Array<Grupo>();
+  usuarioForm: FormGroup;
   user = new User('', '', '', '', new Array());
-  grupo: Grupo;
-  grupos: Array<Grupo>;
 
   shared: SharedService;
   message: {};
   classCss: {};
 
+  listaPerfil: Array<Grupo> = [
+    { id: '2', nome: 'ADMINISTRADORES', descricao: 'ADMINISTRADOR DO SISTEMA' },
+    { id: '3', nome: 'VENDEDORES', descricao: 'VENDEDORES' },
+    { id: '4', nome: 'VENDAS-CONSULTA', descricao: 'VENDAS CONSULTA' }
+  ];
+
   constructor(
+    private fb: FormBuilder,
     private userService: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
     this.shared = SharedService.getInstance();
   }
 
   ngOnInit() {
+    this.usuarioForm = this.fb.group({
+      nome: [null, Validators.required],
+      email: [null, Validators.compose([Validators.required, Validators.email])],
+      senha: [null, Validators.required],
+      grupos: [null, Validators.required]
+    });
+
     let id: string = this.route.snapshot.params['id'];
     if (id != undefined) {
       this.findById(id);
@@ -46,7 +55,7 @@ export class UserComponent implements OnInit {
 
   findById(id: string) {
     this.userService.findById(id).subscribe((responseApi: ResponseApi) => {
-      this.user = new User(responseApi['id'], responseApi['nome'], responseApi['email'],'', responseApi['grupos']);
+      this.user = new User(responseApi['id'], responseApi['nome'], responseApi['email'], '', responseApi['grupos']);
     },
       err => {
         this.showMessage({
@@ -56,20 +65,14 @@ export class UserComponent implements OnInit {
       });
   }
 
-  register() {
+  register(form: NgForm) {
     this.message = {};
-    this.listaPerfil;
-    this.grupos = new Array();
-
-    this.listaPerfil.forEach(element => {
-      this.grupo = new Grupo('','','');
-      this.grupo.nome = element.toString();
-      this.user.grupos.push(this.grupo);
-    });
+    this.findById(form['email']);
+    this.user = new User(this.user.id !== null ? this.user.id : null, form['nome'], form['email'], form['senha'], form['grupos']);
     this.userService.createOrUpdate(this.user).subscribe((responseApi: ResponseApi) => {
-      this.user = new User('','','','', new Array());
+      this.user = new User('', '', '', '', new Array());
       let email: string = responseApi['email'];
-      this.form.resetForm();
+      this.usuarioForm.reset();
       this.showMessage({
         type: 'success',
         text: `Usuário ${email} cadastrado com sucesso`
@@ -94,15 +97,20 @@ export class UserComponent implements OnInit {
     this.classCss = {
       'alert': true
     }
+
+    if(type === 'error' || type === 'erro' || type === 'errors'){
+      type = 'danger'
+    }
+
     this.classCss['alert-' + type] = true;
   }
 
   getFormGroupClass(isInvalid: boolean, isDirty): {} {
     return {
-        'form-group': true,
-        'has-error': isInvalid && isDirty,
-        'has-success': !isInvalid && isDirty
+      'form-group': true,
+      'has-error': isInvalid && isDirty,
+      'has-success': !isInvalid && isDirty
     };
-}
+  }
 
 }

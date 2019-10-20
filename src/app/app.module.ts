@@ -6,17 +6,36 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 
 import { NgModule, LOCALE_ID } from '@angular/core';
 import localept from '@angular/common/locales/pt';
-import { HashLocationStrategy, LocationStrategy, registerLocaleData } from '@angular/common';
+import { registerLocaleData } from '@angular/common';
 import { UserService } from './shared/services/user.service';
-import { FormsModule} from '@angular/forms';
 import { AuthInterceptor } from './login/auth.interceptor';
 import { SharedService } from './shared/services/shared.service';
 import { DialogService } from './dialog.service';
+
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';  
+import { AppComponent } from './app.component'; 
+
+import {  
+  MatButtonModule,  
+  MatMenuModule,  
+  MatToolbarModule,  
+  MatIconModule,  
+  MatCardModule,  
+  MatFormFieldModule,  
+  MatInputModule,  
+  MatDatepickerModule,  
+  MatDatepicker,  
+  MatNativeDateModule,  
+  MatRadioModule,  
+  MatSelectModule,  
+  MatOptionModule,  
+  MatSlideToggleModule,ErrorStateMatcher,ShowOnDirtyErrorStateMatcher  
+} from '@angular/material';  
+
 registerLocaleData(localept, 'pt');
 
 
@@ -34,10 +53,7 @@ export const createTranslateLoader = (http: HttpClient) => {
 @NgModule({
     imports: [
         CommonModule,
-        BrowserModule,
-        BrowserAnimationsModule,
         HttpClientModule,
-        FormsModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -45,20 +61,58 @@ export const createTranslateLoader = (http: HttpClient) => {
                 deps: [HttpClient]
             }
         }),
+        BrowserAnimationsModule,
+        BrowserModule,  
+        FormsModule,  
+        ReactiveFormsModule,  
+        MatButtonModule,  
+        MatMenuModule,  
+        MatToolbarModule,  
+        MatIconModule,  
+        MatCardModule,  
+        MatFormFieldModule,  
+        MatInputModule,  
+        MatDatepickerModule,  
+        MatNativeDateModule,  
+        MatRadioModule,  
+        MatSelectModule,  
+        MatOptionModule,  
+        MatSlideToggleModule, 
         AppRoutingModule,
     ],
+    exports: [  
+        MatButtonModule,  
+        MatMenuModule,  
+        MatToolbarModule,  
+        MatIconModule,  
+        MatCardModule,  
+        BrowserAnimationsModule,  
+        MatFormFieldModule,  
+        MatInputModule,  
+        MatDatepickerModule,  
+        MatNativeDateModule,  
+        MatRadioModule,  
+        MatSelectModule,  
+        MatOptionModule,  
+        MatSlideToggleModule  
+      ],
     declarations: [AppComponent],
     providers: [
         UserService,
         AuthGuard,
         SharedService,
         DialogService,
-        { provide: LOCALE_ID, useValue: 'pt' },
+        {   
+            provide: LOCALE_ID, 
+            useValue: 'pt' },
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,
             multi: true
-        }
+        },
+        {   provide: ErrorStateMatcher,
+            useClass: ShowOnDirtyErrorStateMatcher
+        } 
     ],
     bootstrap: [AppComponent]
 
