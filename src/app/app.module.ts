@@ -34,7 +34,9 @@ import {
   MatSelectModule,  
   MatOptionModule,  
   MatSlideToggleModule,ErrorStateMatcher,ShowOnDirtyErrorStateMatcher  
-} from '@angular/material';  
+} from '@angular/material';
+import { GrupoComponent } from './components/grupo/grupo.component';  
+import { GrupoService } from './shared/services/grupo.service';
 
 registerLocaleData(localept, 'pt');
 
@@ -96,9 +98,10 @@ export const createTranslateLoader = (http: HttpClient) => {
         MatOptionModule,  
         MatSlideToggleModule  
       ],
-    declarations: [AppComponent],
+    declarations: [AppComponent, GrupoComponent],
     providers: [
         UserService,
+        GrupoService,
         AuthGuard,
         SharedService,
         DialogService,

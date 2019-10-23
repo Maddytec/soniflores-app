@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ResponseApi } from '../../../shared/model/response-api';
 import { routerTransition } from '../../../router.animations';
 import { User } from '../../../shared/model/user.model';
@@ -8,7 +7,8 @@ import { SharedService } from '../../../shared/services/shared.service';
 import { UserService } from '../../../shared/services/user.service';
 import { Grupo } from '../../../shared/model/grupo.model';
 
-import { FormBuilder, FormGroup, Validators, FormsModule, NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
+import { GrupoService } from '../../../shared/services/grupo.service';
 
 @Component({
   selector: 'app-user',
@@ -17,7 +17,6 @@ import { FormBuilder, FormGroup, Validators, FormsModule, NgForm } from '@angula
   animations: [routerTransition()]
 })
 export class UserComponent implements OnInit {
-
   usuarioForm: FormGroup;
   user = new User('', '', '', '', new Array());
 
@@ -25,16 +24,14 @@ export class UserComponent implements OnInit {
   message: {};
   classCss: {};
 
-  listaPerfil: Array<Grupo> = [
-    { id: '2', nome: 'ADMINISTRADORES', descricao: 'ADMINISTRADOR DO SISTEMA' },
-    { id: '3', nome: 'VENDEDORES', descricao: 'VENDEDORES' },
-    { id: '4', nome: 'VENDAS-CONSULTA', descricao: 'VENDAS CONSULTA' }
-  ];
-
+  listaPerfil: Array<Grupo> = new Array<Grupo>();
+  
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
+    private grupoService: GrupoService,
     private route: ActivatedRoute,
+    private router: Router
   ) {
     this.shared = SharedService.getInstance();
   }
@@ -51,6 +48,8 @@ export class UserComponent implements OnInit {
     if (id != undefined) {
       this.findById(id);
     }
+
+    this.findGrupoAll();
   }
 
   findById(id: string) {
@@ -83,6 +82,7 @@ export class UserComponent implements OnInit {
         text: err['error']['errors'][0]
       });
     });
+
   }
 
   private showMessage(message: { type: string, text: string }): void {
@@ -98,7 +98,7 @@ export class UserComponent implements OnInit {
       'alert': true
     }
 
-    if(type === 'error' || type === 'erro' || type === 'errors'){
+    if (type === 'error' || type === 'erro' || type === 'errors') {
       type = 'danger'
     }
 
@@ -111,6 +111,20 @@ export class UserComponent implements OnInit {
       'has-error': isInvalid && isDirty,
       'has-success': !isInvalid && isDirty
     };
+  }
+
+  findGrupoAll() {
+    this.grupoService.findAll().subscribe((responseApi: ResponseApi) => {
+      Object.keys(responseApi).forEach(key => {
+        this.listaPerfil.push(responseApi[key]);
+      });
+    },
+      err => {
+        this.showMessage({
+          type: 'error',
+          text: err['error']['errors'][0]
+        });
+      });
   }
 
 }
