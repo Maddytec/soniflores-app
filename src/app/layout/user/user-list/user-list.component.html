@@ -34,7 +34,9 @@
           <li *ngFor="let page of pages; let i=index">
             <a href="#" (click)="setPage(i, $event)"> {{ i + 1 }}</a>
           </li>
-          <li><a [ngClass]="{'pagination-focus': i == page }" href="#" (click)="setNextPage($event)">&raquo;</a></li>
+          <li>
+            <a href="#" (click)="setNextPage($event)">&raquo;</a>
+          </li>
         </ul>
       </div>
     </div>
