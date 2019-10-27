@@ -34,6 +34,7 @@
     "core-js": "^2.6.10",
     "font-awesome": "^4.7.0",
     "hammerjs": "^2.0.8",
+    "ng-table": "^3.0.1",
     "ng2-charts": "^1.6.0",
     "rxjs": "6.4.0",
     "update": "^0.7.4",
