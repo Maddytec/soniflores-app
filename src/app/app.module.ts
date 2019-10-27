@@ -32,8 +32,13 @@ import {
   MatNativeDateModule,  
   MatRadioModule,  
   MatSelectModule,  
-  MatOptionModule,  
-  MatSlideToggleModule,ErrorStateMatcher,ShowOnDirtyErrorStateMatcher  
+  MatOptionModule,
+  MatSlideToggleModule,
+  ErrorStateMatcher,
+  ShowOnDirtyErrorStateMatcher,  
+  MatTableModule,
+  MatSortModule,
+  MatPaginatorModule
 } from '@angular/material';
 import { GrupoComponent } from './components/grupo/grupo.component';  
 import { GrupoService } from './shared/services/grupo.service';
@@ -78,8 +83,11 @@ export const createTranslateLoader = (http: HttpClient) => {
         MatNativeDateModule,  
         MatRadioModule,  
         MatSelectModule,  
-        MatOptionModule,  
-        MatSlideToggleModule, 
+        MatOptionModule,
+        MatTableModule, 
+        MatSortModule, 
+        MatSlideToggleModule,
+        MatPaginatorModule, 
         AppRoutingModule,
     ],
     exports: [  
@@ -95,7 +103,9 @@ export const createTranslateLoader = (http: HttpClient) => {
         MatNativeDateModule,  
         MatRadioModule,  
         MatSelectModule,  
-        MatOptionModule,  
+        MatOptionModule,
+        MatTableModule,
+        MatSortModule,  
         MatSlideToggleModule  
       ],
     declarations: [AppComponent, GrupoComponent],

@@ -2,6 +2,53 @@
     <strong>{{ message.text }}</strong>
 </div>
 
+<mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Pesquisar">
+  </mat-form-field>
+
+  <div class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="nome">
+      <th mat-header-cell *matHeaderCellDef> Nome </th>
+      <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Email</th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="editar">
+        <th mat-header-cell *matHeaderCellDef> Editar</th>
+        <td mat-cell *matCellDef="let element"> 
+            <button mat-icon-button color="accent" (click)="edit(element.id)" >
+                <mat-icon class="mat-18">system_update</mat-icon>
+            </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef> Delete </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="basic">
+                <mat-icon color="warn" class="mat-18" (click)="delete(element.id)">delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
+</div>
+<!--
 <div class="row">
   <div class="col-md-10">
     <div class="box">
@@ -9,23 +56,25 @@
         <h3 class="box-title">Usuarios</h3>
       </div>
       <div class="box-body">
-        <table class="table table-bordered">
-          <tr>
-            <th style="width: 10px">#</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Perfil</th>
-            <th style="width: 10px">&nbsp;</th>
-            <th style="width: 10px">&nbsp;</th>
-          </tr>
+        <table class="table table-striped table-dark">
+          <thead>
+            <tr>
+              <th style="width: 10px">#</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Email</th>
+              <th style="width: 10px">&nbsp;</th>
+              <th style="width: 10px">&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
           <tr *ngFor="let user of listUser" >
             <td>{{ user.id }}</td>
-            <td>{{ user.name }}</td>
+            <td>{{ user.nome }}</td>
             <td>{{ user.email }}</td>
-            <td>{{ user.role }}</td>
             <td><button class="btn btn-primary" (click)="edit(user.id)">Editar</button></td>
             <td><button class="btn btn-danger" (click)="delete(user.id)">Excluir</button></td>
           </tr>
+        </tbody>
         </table>
       </div>
       <div class="box-footer clearfix">
@@ -42,3 +91,4 @@
     </div>
   </div>
 </div>
+-->

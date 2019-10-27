@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResponseApi } from '../../../shared/model/response-api';
 import { routerTransition } from '../../../router.animations';
@@ -19,13 +19,13 @@ import { GrupoService } from '../../../shared/services/grupo.service';
 export class UserComponent implements OnInit {
   usuarioForm: FormGroup;
   user = new User('', '', '', '', new Array());
-
+  
   shared: SharedService;
   message: {};
   classCss: {};
 
   listaPerfil: Array<Grupo> = new Array<Grupo>();
-  
+
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -55,6 +55,7 @@ export class UserComponent implements OnInit {
   findById(id: string) {
     this.userService.findById(id).subscribe((responseApi: ResponseApi) => {
       this.user = new User(responseApi['id'], responseApi['nome'], responseApi['email'], '', responseApi['grupos']);
+      this.usuarioForm.patchValue(this.user);
     },
       err => {
         this.showMessage({

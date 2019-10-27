@@ -1,9 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SharedService } from '../../../shared/services/shared.service';
 import { DialogService } from '../../../dialog.service';
 import { UserService } from '../../../shared/services/user.service';
 import { Router } from '@angular/router';
 import { ResponseApi } from '../../../shared/model/response-api';
+import {MatTableDataSource, MatPaginator} from '@angular/material';
+
+export interface Usuario {
+  nome: string;
+  email: number;
+}
+
+
 
 @Component({
   selector: 'app-user-list',
@@ -13,12 +21,16 @@ import { ResponseApi } from '../../../shared/model/response-api';
 export class UserListComponent implements OnInit {
 
   page: number = 0;
-  size: number = 5;
-  pages: Array<number>;
+  pageSize: number = 50;
+  totalElements: number;
+  totalPage: Array<number>;
   shared: SharedService;
   message: {};
   classCss: {};
-  listUser = [];
+  displayedColumns: string[] = ['id', 'nome', 'email','editar', 'delete'];
+  usuarios: Usuario[];
+  dataSource;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
     private dialogService: DialogService,
@@ -29,13 +41,14 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.findAll(this.page, this.size);
+    this.findAll(this.page, this.pageSize);
   }
 
-  findAll(page: number, size: number) {
-    this.userService.findAll(page, size).subscribe((responseApi: ResponseApi) => {
-      this.listUser = responseApi['elements'];
-      this.pages = new Array(responseApi['totalPage']);
+  findAll(page: number, pageSize: number) {
+    this.userService.findAll(page, pageSize).subscribe((responseApi: ResponseApi) => {
+      this.usuarios = responseApi['elements'];
+      this.dataSource = new MatTableDataSource<Usuario>(this.usuarios);
+      this.dataSource.paginator = this.paginator; 
     }, err => {
       this.showMessage({
         type: 'error',
@@ -58,7 +71,7 @@ export class UserListComponent implements OnInit {
               type: 'success',
               text: 'Usuario excluido'
             });
-            this.findAll(this.page, this.size);
+            this.findAll(this.page, this.pageSize);
           }, err => {
             this.showMessage({
               type: 'error',
@@ -71,9 +84,9 @@ export class UserListComponent implements OnInit {
 
   setNextPage(event: any) {
     event.preventDefault();
-    if (this.page + 1 < this.pages.length) {
+    if (this.page + 1 < this.totalPage.length) {
       this.page = this.page + 1;
-      this.findAll(this.page, this.size);
+      this.findAll(this.page, this.pageSize);
     }
   }
 
@@ -81,14 +94,14 @@ export class UserListComponent implements OnInit {
     event.preventDefault();
     if (this.page > 0 ) {
       this.page = this.page - 1;
-      this.findAll(this.page, this.size);
+      this.findAll(this.page, this.pageSize);
     }
   }
 
   setPage(page: number, event: any) {
     event.preventDefault();
     this.page = this.page = page;
-    this.findAll(this.page, this.size);
+    this.findAll(this.page, this.pageSize);
   }
 
   private showMessage(message: { type: string, text: string }): void {
@@ -104,5 +117,9 @@ export class UserListComponent implements OnInit {
       'alert': true
     }
     this.classCss['alert-' + type] = true;
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

@@ -10,7 +10,7 @@
                 <img src="assets/images/logo.png" height="40px" width="40px" class="user-avatar" />
                 <div class="container col-md-4">
                     <mat-form-field>
-                        <input formControlName="nome" matInput placeholder="Nome">
+                        <input  formControlName="nome" matInput placeholder="Nome">
                         <mat-error *ngIf="usuarioForm.get('nome').dirty && !usuarioForm.get('nome').valid && usuarioForm.get('nome').touched">
                             O nome é <strong>obrigatório</strong>
                         </mat-error>
