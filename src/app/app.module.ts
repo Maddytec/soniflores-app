@@ -42,6 +42,8 @@ import {
 } from '@angular/material';
 import { GrupoComponent } from './components/grupo/grupo.component';  
 import { GrupoService } from './shared/services/grupo.service';
+import { ProdutoComponent } from './components/produto/produto.component';
+import { ProdutoService } from './shared/services/produto.service';
 
 registerLocaleData(localept, 'pt');
 
@@ -111,6 +113,7 @@ export const createTranslateLoader = (http: HttpClient) => {
     declarations: [AppComponent, GrupoComponent],
     providers: [
         UserService,
+        ProdutoService,
         GrupoService,
         AuthGuard,
         SharedService,
