@@ -6,7 +6,13 @@ import { PageHeaderModule } from '../../../shared';
 import { UserListRoutingModule } from './user-list-routing.module';
 import { UserListComponent } from './user-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MatTableModule, MatSortModule, MatTableDataSource, MatFormFieldModule, MatInputModule, MatPaginatorModule, MatIconModule } from '@angular/material';
+import { 
+    MatTableModule,
+     MatSortModule,
+     MatFormFieldModule, 
+     MatInputModule, 
+     MatPaginatorModule, 
+     MatIconModule } from '@angular/material';
 
 @NgModule({
     imports: [

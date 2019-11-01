@@ -5,6 +5,7 @@ import { UserService } from '../../../shared/services/user.service';
 import { Router } from '@angular/router';
 import { ResponseApi } from '../../../shared/model/response-api';
 import {MatTableDataSource, MatPaginator, PageEvent} from '@angular/material';
+import { routerTransition } from '../../../router.animations';
 
 export interface Usuario {
   nome: string;
@@ -14,7 +15,8 @@ export interface Usuario {
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss']
+  styleUrls: ['./user-list.component.scss'],
+  animations: [routerTransition()]
 })
 export class UserListComponent implements OnInit {
 
@@ -22,14 +24,14 @@ export class UserListComponent implements OnInit {
   length: number = 0;
 
   pageSize: number = 5;
-  //totalPage: Array<number>;
   pageSizeOptions = ['5','10','30','50'];
   shared: SharedService;
   message: {};
   classCss: {};
   displayedColumns: string[] = ['id', 'nome', 'email','editar', 'delete'];
   usuarios: Usuario[];
-  dataSource;
+  dataSource: MatTableDataSource<Usuario>;
+ 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   pageEvent: PageEvent;
 
@@ -50,8 +52,6 @@ export class UserListComponent implements OnInit {
       this.usuarios = responseApi['elements'];
       this.length = responseApi['totalElements'];
       this.dataSource = new MatTableDataSource<Usuario>(this.usuarios);
-      this.dataSource.paginator.length = responseApi['elements'];
-      this.dataSource.paginator = this.paginator; 
     }, err => {
       this.showMessage({
         type: 'error',
@@ -107,7 +107,7 @@ export class UserListComponent implements OnInit {
   public getServerData(event?:PageEvent){
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.findAll(this.pageIndex, this.pageSize)
+    this.findAll(this.pageIndex, this.pageSize);
  return event;
   }
 }
