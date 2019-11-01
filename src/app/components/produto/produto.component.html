@@ -41,50 +41,14 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+        <mat-paginator 
+            #paginator
+            [length]="length"
+            [pageIndex]="pageIndex"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="pageSizeOptions"
+            (page)="pageEvent = getServerData($event)"
+             showFirstLastButtons>
+        </mat-paginator>
     </div>
-
-
-    <!--
-    <div class="row justify-content-md-center">
-        <div class="col-lg-6">
-
-            <form role="form">
-                <fieldset class="form-group">
-                    <label>Código</label>
-                    <input class="form-control" placeholder="Código do produto">
-                </fieldset>
-
-                <fieldset class="form-group">
-                    <label>Nome</label>
-                    <input class="form-control" placeholder="Nome do produto">
-                </fieldset>
-
-                <div class="form-group">
-                    <label>Grupo de produto</label>
-                    <select class="form-control">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                </div>
-
-                <fieldset class="form-group">
-                    <label>Valor unitário</label>
-
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">R$</span>
-                    </div>
-                    <input type="text" class="form-control">
-                </div>
-            </fieldset>
-
-                <button type="reset" class="btn btn-secondary">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
-            </form>
-        </div>
-    </div>
-    -->
 </div>
