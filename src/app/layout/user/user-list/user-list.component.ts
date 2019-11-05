@@ -1,11 +1,12 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit } from '@angular/core';
 import { SharedService } from '../../../shared/services/shared.service';
 import { DialogService } from '../../../dialog.service';
 import { UserService } from '../../../shared/services/user.service';
 import { Router } from '@angular/router';
 import { ResponseApi } from '../../../shared/model/response-api';
-import {MatTableDataSource, MatPaginator, PageEvent} from '@angular/material';
+import { MatTableDataSource, MatPaginator, PageEvent } from '@angular/material';
 import { routerTransition } from '../../../router.animations';
+import { User } from '../../../shared/model/user.model';
 
 export interface Usuario {
   nome: string;
@@ -24,16 +25,19 @@ export class UserListComponent implements OnInit {
   length: number = 0;
 
   pageSize: number = 5;
-  pageSizeOptions = ['5','10','30','50'];
+  pageSizeOptions = ['5', '10', '30', '50'];
   shared: SharedService;
   message: {};
   classCss: {};
-  displayedColumns: string[] = ['id', 'nome', 'email','editar', 'delete'];
-  usuarios: Usuario[];
+  displayedColumns: string[] = ['id', 'nome', 'email', 'editar', 'delete'];
+  usuarios: Usuario[] = new Array<Usuario>();
+  usuario: Usuario;
   dataSource: MatTableDataSource<Usuario>;
- 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  filtroEncontrado: boolean = false;
+
   pageEvent: PageEvent;
+  filtroInicializado: boolean = false;
+  private dsData: any;
 
   constructor(
     private dialogService: DialogService,
@@ -43,12 +47,30 @@ export class UserListComponent implements OnInit {
     this.shared = SharedService.getInstance();
   }
 
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+
   ngOnInit() {
-    this.findAll(this.pageIndex, this.pageSize);
+    this.findAll();
   }
 
-  findAll(pageIndex: number, pageSize: number) {
-    this.userService.findAll(pageIndex, pageSize).subscribe((responseApi: ResponseApi) => {
+  findAll() {
+    this.userService.findAll().subscribe((responseApi: ResponseApi) => {
+      Object.keys(responseApi).forEach(key => {
+        this.usuarios.push(responseApi[key]);
+      });
+      this.dataSource = new MatTableDataSource<Usuario>(this.usuarios);
+      this.length = this.usuarios.length;
+      this.dataSource.paginator = this.paginator;
+    }, err => {
+      this.showMessage({
+        type: 'error',
+        text: err['error']['errors'][0]
+      });
+    });
+  }
+
+  findAllLazy(pageIndex: number, pageSize: number) {
+    this.userService.findAllLazy(pageIndex, pageSize).subscribe((responseApi: ResponseApi) => {
       this.usuarios = responseApi['elements'];
       this.length = responseApi['totalElements'];
       this.dataSource = new MatTableDataSource<Usuario>(this.usuarios);
@@ -74,7 +96,8 @@ export class UserListComponent implements OnInit {
               type: 'success',
               text: 'Usuario excluido'
             });
-            this.findAll(this.pageIndex, this.pageSize);
+            // Refresh DataTable to remove row.
+          this.deleteRowDataTable (id);
           }, err => {
             this.showMessage({
               type: 'error',
@@ -100,14 +123,14 @@ export class UserListComponent implements OnInit {
     this.classCss['alert-' + type] = true;
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  public doFilter = (value: string) => {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
   }
 
-  public getServerData(event?:PageEvent){
-    this.pageIndex = event.pageIndex;
-    this.pageSize = event.pageSize;
-    this.findAll(this.pageIndex, this.pageSize);
- return event;
+  private deleteRowDataTable (id: string) {
+    const itemIndex = this.dataSource.data.findIndex(obj => obj['id'] === id);
+    this.dataSource.data.splice(itemIndex, 1);
+    this.dataSource.paginator = this.paginator;
   }
+
 }

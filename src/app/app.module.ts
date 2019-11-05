@@ -89,7 +89,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         MatTableModule, 
         MatSortModule, 
         MatSlideToggleModule,
-        MatPaginatorModule, 
+        MatPaginatorModule,
         AppRoutingModule,
     ],
     exports: [  

@@ -21,8 +21,12 @@ export class UserService {
     }
   }
 
-  findAll(page: number, size: number ){
+  findAllLazy(page: number, size: number ){
     return this.http.get(`${API}/usuario/v2?page=${page}&size=${size}`)
+  }
+
+  findAll(){
+    return this.http.get(`${API}/usuario`)
   }
 
   findById(id: string){
