@@ -7,6 +7,7 @@ import { ResponseApi } from '../../../shared/model/response-api';
 import { MatTableDataSource, MatPaginator, PageEvent } from '@angular/material';
 import { routerTransition } from '../../../router.animations';
 import { User } from '../../../shared/model/user.model';
+import { TableUtils } from '../../../shared/utils/table-utils';
 
 export interface Usuario {
   nome: string;
@@ -95,7 +96,7 @@ export class UserListComponent implements OnInit {
               type: 'success',
               text: 'Usuario excluido'
             });
-          this.deleteRowDataTable (id);
+            TableUtils.deleteRowDataTable(id, this.dataSource, this.paginator);
           }, err => {
             this.showMessage({
               type: 'error',
@@ -123,12 +124,6 @@ export class UserListComponent implements OnInit {
 
   public doFilter = (value: string) => {
     this.dataSource.filter = value.trim().toLocaleLowerCase();
-  }
-
-  private deleteRowDataTable (id: string) {
-    const itemIndex = this.dataSource.data.findIndex(obj => obj['id'] === id);
-    this.dataSource.data.splice(itemIndex, 1);
-    this.dataSource.paginator = this.paginator;
   }
 
 }
