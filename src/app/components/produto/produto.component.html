@@ -2,7 +2,7 @@
     <app-page-header [heading]="'Consultar produto'" [icon]="'fa-edit'"></app-page-header>
 
     <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Pesquisar">
+        <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
 
     <div class="mat-elevation-z8">
@@ -47,8 +47,8 @@
             [pageIndex]="pageIndex"
             [pageSize]="pageSize"
             [pageSizeOptions]="pageSizeOptions"
-            (page)="pageEvent = getServerData($event)"
-             showFirstLastButtons>
+            (page)="applyFilter($event)"
+            showFirstLastButtons>
         </mat-paginator>
     </div>
 </div>

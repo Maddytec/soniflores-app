@@ -9,8 +9,12 @@ export class ProdutoService {
     private http: HttpClient) {
   }
 
-  findAll(page: number, size: number) {
+  findAllLazy(page: number, size: number) {
     return this.http.get(`${API}/produto?page=${page}&size=${size}`)
+  }
+
+  findAll() {
+    return this.http.get(`${API}/produto`)
   }
 
   findById(id: string) {

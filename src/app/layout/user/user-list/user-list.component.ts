@@ -37,7 +37,6 @@ export class UserListComponent implements OnInit {
 
   pageEvent: PageEvent;
   filtroInicializado: boolean = false;
-  private dsData: any;
 
   constructor(
     private dialogService: DialogService,
@@ -96,7 +95,6 @@ export class UserListComponent implements OnInit {
               type: 'success',
               text: 'Usuario excluido'
             });
-            // Refresh DataTable to remove row.
           this.deleteRowDataTable (id);
           }, err => {
             this.showMessage({

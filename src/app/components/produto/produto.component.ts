@@ -30,7 +30,7 @@ export interface Produto {
   styleUrls: ['./produto.component.scss'],
   animations: [routerTransition()]
 })
-export class ProdutoComponent {
+export class ProdutoComponent implements OnInit {
 
   pageIndex: number = 0;
   length: number = 0;
@@ -39,46 +39,74 @@ export class ProdutoComponent {
 
   shared: SharedService;
 
-  message: Message = new Message();
+  message: {};
   classCss: {};
 
   displayedColumns: string[] = ['id', 'sku', 'nome', 'subcategoria', 'categoria', 'quantidadeEstoque', 'valorUnitario',];
-  produtos: Produto[];
+  produtos: Produto[] = new Array<Produto>();
   dataSource: MatTableDataSource<Produto>;
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   pageEvent: PageEvent;
 
   constructor(
     private produtoService: ProdutoService
   ) {
     this.shared = SharedService.getInstance();
+  }
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+
+  ngOnInit() {
     this.findAll();
   }
 
   findAll() {
-    this.produtoService.findAll(this.pageIndex, this.pageSize).subscribe((responseApi: ResponseApi) => {
+    this.produtoService.findAll().subscribe((responseApi: ResponseApi) => {
+      Object.keys(responseApi).forEach(key => {
+        this.produtos.push(responseApi[key]);
+      });
+      this.dataSource = new MatTableDataSource<Produto>(this.produtos);
+      this.length = this.produtos.length;
+      this.dataSource.paginator = this.paginator;
+    }, err => {
+      this.showMessage({
+        type: 'error',
+        text: err['error']['errors'][0]
+      });
+    });
+  }
+
+  findAllLazy() {
+    this.produtoService.findAllLazy(this.pageIndex, this.pageSize).subscribe((responseApi: ResponseApi) => {
       this.produtos = responseApi['elements'];
       this.length = responseApi['totalElements'];
       this.dataSource = new MatTableDataSource<Produto>(this.produtos);
     },
       err => {
-        this.message.showMessage({
+        this.showMessage({
           type: 'error',
           text: err['error']['errors'][0]
         });
       });
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  private showMessage(message: { type: string, text: string }): void {
+    this.message = message;
+    this.buildClasses(message.type);
+    setTimeout(() => {
+      this.message = undefined;
+    }, 8000);
   }
 
-  public getServerData(event?: PageEvent) {
-    this.pageIndex = event.pageIndex;
-    this.pageSize = event.pageSize;
-    this.findAll(this.pageIndex, this.pageSize);
-    return event;
+  private buildClasses(type: string): void {
+    this.classCss = {
+      'alert': true
+    }
+    this.classCss['alert-' + type] = true;
+  }
+
+  public doFilter = (value: string) => {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
   }
 
 }
