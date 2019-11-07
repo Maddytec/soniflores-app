@@ -1,11 +1,15 @@
 <div [@routerTransition]>
+    <app-page-header [heading]="'Consultar Usuarios'" [icon]="'fa-edit'"></app-page-header>
+
   <div [ngClass]="classCss" role="alert" *ngIf="message">
     <strong>{{ message.text }}</strong>
   </div>
 
-  <mat-form-field>
-      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
-    </mat-form-field>
+  <div class="container">
+    <mat-form-field>
+        <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+  </div>
 
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
