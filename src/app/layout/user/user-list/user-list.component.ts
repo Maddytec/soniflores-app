@@ -112,18 +112,19 @@ export class UserListComponent implements OnInit {
     this.buildClasses(message.type);
     setTimeout(() => {
       this.message = undefined;
-    }, 8000);
+    }, 5000);
   }
 
   private buildClasses(type: string): void {
     this.classCss = {
       'alert': true
     }
-    this.classCss['alert-' + type] = true;
-  }
 
-  public doFilter = (value: string) => {
-    this.dataSource.filter = value.trim().toLocaleLowerCase();
+    if (type === 'error' || type === 'erro' || type === 'errors') {
+      type = 'danger'
+    }
+
+    this.classCss['alert-' + type] = true;
   }
 
 }

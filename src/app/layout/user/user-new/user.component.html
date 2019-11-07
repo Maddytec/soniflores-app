@@ -1,5 +1,5 @@
 <div [@routerTransition]>
-    <app-page-header [heading]="'Cadastro de usuario'" [icon]="'fa-edit'"></app-page-header>
+    <app-page-header [heading]="usuarioForm.get('nome').value === null ? 'Cadastro de usuario' : 'Alteração de usuario'" [icon]="'fa-edit'"></app-page-header>
 
     <div class="row justify-content-md-center">
         <div class="col-md-12" style="text-align: center">
