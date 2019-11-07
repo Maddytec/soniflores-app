@@ -20,4 +20,8 @@ export class ProdutoService {
   findById(id: string) {
     return this.http.get(`${API}/produto/${id}`)
   }
+
+  delete(id: string){
+    return this.http.delete(`${API}/produto/${id}`)
+  }
 }
