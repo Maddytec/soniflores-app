@@ -15,20 +15,32 @@ export class DashboardComponent implements OnInit {
         this.sliders.push(
             {
                 imagePath: 'assets/images/slider1.jpg',
-                label: 'First slide label',
+                label: 'Bem Vindo!!!',
                 text:
-                    'Nulla vitae elit libero, a pharetra augue mollis interdum.'
+                    ''
             },
             {
                 imagePath: 'assets/images/slider2.jpg',
-                label: 'Second slide label',
-                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+                label: 'Presente da natureza',
+                text: ''
             },
             {
                 imagePath: 'assets/images/slider3.jpg',
-                label: 'Third slide label',
+                label: 'Decorar é uma arte',
                 text:
-                    'Praesent commodo cursus magna, vel scelerisque nisl consectetur.'
+                    ''
+            },
+            {
+                imagePath: 'assets/images/slider4.jpg',
+                label: 'Realização de sonhos',
+                text:
+                    ''
+            },
+            {
+                imagePath: 'assets/images/slider5.jpg',
+                label: 'Por tudo dai graças',
+                text:
+                    ''
             }
         );
 
