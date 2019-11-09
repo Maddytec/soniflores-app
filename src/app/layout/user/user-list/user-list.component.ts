@@ -86,6 +86,10 @@ export class UserListComponent implements OnInit {
     this.router.navigate(['/users', id]);
   }
 
+  public doFilter = (value: string) => {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
+
   delete(id: string) {
     this.dialogService.confirm('Deseja realmente excluir o usuario?')
       .then((canDelete: boolean) => {
