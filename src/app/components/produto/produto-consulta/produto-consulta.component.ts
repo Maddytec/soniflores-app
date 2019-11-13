@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SharedService } from '../../shared/services/shared.service';
-import { Produto } from '../../shared/model/produto.model';
-import { ProdutoService } from '../../shared/services/produto.service';
-import { ResponseApi } from '../../shared/model/response-api';
+import { SharedService } from '../../../shared/services/shared.service';
+import { Produto } from '../../../shared/model/produto.model';
+import { ProdutoService } from '../../../shared/services/produto.service';
+import { ResponseApi } from '../../../shared/model/response-api';
 import { MatTableDataSource, MatPaginator, PageEvent } from '@angular/material';
-import { routerTransition } from '../../router.animations';
-import { DialogService } from '../../dialog.service';
+import { routerTransition } from '../../../router.animations';
+import { DialogService } from '../../../dialog.service';
 import { Router } from '@angular/router';
-import { TableUtils } from '../../shared/utils/table-utils';
+import { TableUtils } from '../../../shared/utils/table-utils';
 
 export interface Produto {
   id: string;
@@ -27,12 +27,12 @@ export interface Produto {
 
 
 @Component({
-  selector: 'app-produto',
-  templateUrl: './produto.component.html',
-  styleUrls: ['./produto.component.scss'],
+  selector: 'app-produto-cosulta',
+  templateUrl: './produto-consulta.component.html',
+  styleUrls: ['./produto-consulta.component.scss'],
   animations: [routerTransition()]
 })
-export class ProdutoComponent implements OnInit {
+export class ProdutoConsultaComponent implements OnInit {
   
   shared: SharedService;
   
