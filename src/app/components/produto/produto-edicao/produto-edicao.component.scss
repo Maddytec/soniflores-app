@@ -1,0 +1,44 @@
+table {
+    width: 100%;
+  }
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+
+button {
+    border-bottom-width: 0px;
+    border-top-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    background-color: white;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.container > * {
+  width: 100%;
+}
+
+
+.container-edicao {
+    position: relative;
+    padding: 1rem;
+    margin: 1rem -15px 0;
+    border: solid #f8f9fa;
+    border-width: .2rem 0 0;
+  }
+
+  .mat-elevation-z8 {
+    background: rgb(0, 80, 0);
+    color: #999;
+}
+
+.card-header {
+  color:rgb(0, 80, 0);
+  text-align: center;
+}

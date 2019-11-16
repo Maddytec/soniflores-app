@@ -1,0 +1,64 @@
+<div [@routerTransition] style="margin-left: 20px;">
+    <app-page-header [heading]="'Cadastro de Produto'" [icon]="'fa-edit'"></app-page-header>
+
+    <div [ngClass]="classCss" role="alert" *ngIf="message"><strong>{{ message.text }}</strong></div>
+
+    <div class="card m-3">
+        <h4 class="card-header">Cadastro de Produto</h4>
+        <div class="card-body mat-elevation-z8">
+            <form [formGroup]="formProduto" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <label for="sku">SKU</label>
+                        <input formControlName="sku" type="text" class="form-control" name="sku" id="sku"
+                            placeholder="Código">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="nome">Nome</label>
+                        <input formControlName="nome" type="text" class="form-control" id="nome"
+                            placeholder="Nome do produto">
+                        <div *ngIf="submitted && f.nome.errors" class="invalid-feedback">
+                            <div *ngIf="f.nome.errors.required">O campo nome é obrigatório.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label for="categoria">Categoria</label>
+                        <div class="input-group mb-3">
+                            <select formControlName="categoria" class="custom-select" id="inputGroupSelect01"
+                                (change)="findSubcategoriaFiltradas()">
+                                <option value="" >Selecione</option>
+                                <option *ngFor="let categoria of categorias" [ngValue]="categoria">
+                                    {{ categoria.descricao }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="subCategoria">Subcategoria</label>
+                        <div class="input-group mb-3">
+                            <select formControlName="subcategoria" class="custom-select" id="inputGroupSelect01">
+                                <option value="" >Selecione</option>
+                                <option *ngFor="let subcategoria of subcategoriasFiltradas" [ngValue]="subcategoria">
+                                    {{ subcategoria.descricao }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label for="estoque">Estoque</label>
+                        <input formControlName="estoque" type="text" class="form-control" name="estoque" id="estoque"
+                            placeholder="Estoque">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="valor">Valor</label>
+                        <input formControlName="valor" type="text" class="form-control" id="valor" placeholder="Valor">
+                    </div>
+                </div>
+                <input class="btn btn-secondary" type="reset" value="Cancelar">
+                <input class="btn btn-primary" type="submit" value="Salvar">
+            </form>
+        </div>
+    </div>
+</div>
