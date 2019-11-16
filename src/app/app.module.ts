@@ -43,6 +43,7 @@ import {
 import { GrupoComponent } from './components/grupo/grupo.component';  
 import { GrupoService } from './shared/services/grupo.service';
 import { ProdutoService } from './shared/services/produto.service';
+import { CategoriaService } from './shared/services/categoria.service';
 
 registerLocaleData(localept, 'pt');
 
@@ -69,10 +70,10 @@ export const createTranslateLoader = (http: HttpClient) => {
                 deps: [HttpClient]
             }
         }),
+        ReactiveFormsModule,  
         BrowserAnimationsModule,
         BrowserModule,  
         FormsModule,  
-        ReactiveFormsModule,  
         MatButtonModule,  
         MatMenuModule,  
         MatToolbarModule,  
@@ -114,6 +115,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         UserService,
         ProdutoService,
         GrupoService,
+        CategoriaService,
         AuthGuard,
         SharedService,
         DialogService,
