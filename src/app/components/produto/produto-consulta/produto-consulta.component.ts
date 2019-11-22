@@ -127,18 +127,18 @@ export class ProdutoConsultaComponent implements OnInit {
   }
 
   edit(id: string) {
-    this.router.navigate(['/users', id]);
+    this.router.navigate(['/produto', id]);
   }
 
   delete(id: string) {
-    this.dialogService.confirm('Deseja realmente excluir o usuario?')
+    this.dialogService.confirm('Deseja realmente excluir o produto?')
       .then((canDelete: boolean) => {
         if (canDelete) {
           this.message = {};
           this.produtoService.delete(id).subscribe((responseApi: ResponseApi) => {
             this.showMessage({
               type: 'success',
-              text: 'Usuario excluido'
+              text: 'Produto excluido'
             });
             TableUtils.deleteRowDataTable(id, this.dataSource, this.paginator);
           }, err => {

@@ -1,10 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { routerTransition } from '../../../router.animations';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { SharedService } from '../../../shared/services/shared.service';
 import { CategoriaService } from '../../../shared/services/categoria.service';
 import { ResponseApi } from '../../../shared/model/response-api';
 import { Categoria } from '../../../shared/model/categoria.model';
+import { ProdutoService } from '../../../shared/services/produto.service';
+import { Produto } from '../../../shared/model/produto.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-produto-edicao',
@@ -20,19 +23,16 @@ export class ProdutoEdicaoComponent implements OnInit {
   categorias: Categoria[] = new Array<Categoria>();
   subcategorias: Categoria[] = new Array<Categoria>();
   subcategoriasFiltradas: Categoria[] = new Array<Categoria>();
-
-  @Input()
-  categoria: Categoria;
-
-  @Input()
-  subcategoria: Categoria;
+  produto: Produto;
 
   formProduto: FormGroup;
   submitted = false;
 
   constructor(
-              private formBuider: FormBuilder,
-              private categoriaService: CategoriaService
+    private formBuider: FormBuilder,
+    private categoriaService: CategoriaService,
+    private produtoService: ProdutoService,
+    private route: ActivatedRoute,
   ) {
     this.shared = SharedService.getInstance();
   }
@@ -41,16 +41,21 @@ export class ProdutoEdicaoComponent implements OnInit {
     this.form();
     this.findCategoriaAll();
     this.findSubcategoriaAll();
+
+    let sku: string = this.route.snapshot.params['id'];
+    if (sku != undefined) {
+      this.findBySku(sku);
+    }
   }
 
   form() {
     this.formProduto = this.formBuider.group({
       sku: [''],
       nome: ['', Validators.required],
-      categoria: ['', Validators.required],
-      subcategoria: ['', Validators.required],
-      estoque: ['', Validators.required],
-      valor: ['']
+      categoria: [null, Validators.required],
+      subcategoria: [null, Validators.required],
+      quantidadeEstoque: ['', Validators.required],
+      valorUnitario: ['']
     });
   }
 
@@ -71,12 +76,12 @@ export class ProdutoEdicaoComponent implements OnInit {
     this.formProduto.reset();
   }
 
-  findSubcategoriaFiltradas(){
+  findSubcategoriaFiltradas() {
     this.subcategoriasFiltradas = this.subcategorias.filter(
-      subcategoria => 
-        subcategoria.categoriaPai !== undefined 
+      subcategoria =>
+        subcategoria.categoriaPai !== undefined
         && subcategoria.categoriaPai.id === this.f.categoria.value.id
-      );
+    );
   }
 
   findSubcategoriaAll() {
@@ -91,6 +96,12 @@ export class ProdutoEdicaoComponent implements OnInit {
           text: err['error']['errors'][0]
         });
       });
+  }
+
+  findSubcategoriaPorCategoriaId() {
+    this.categoriaService.findAll().subscribe(() => {
+      this.findSubcategoriaFiltradas();
+    });
   }
 
   findCategoriaAll() {
@@ -108,18 +119,12 @@ export class ProdutoEdicaoComponent implements OnInit {
       });
   }
 
-  filtrarSubcategoriaPorId(id) {
-    this.findSubcategoriaAll();
-    this.subcategorias = this.subcategorias.filter(categoria => categoria.categoriaPai.id === id);
-  }
-
-
   private showMessage(message: { type: string, text: string }): void {
     this.message = message;
     this.buildClasses(message.type);
     setTimeout(() => {
       this.message = undefined;
-    }, 5000);
+    }, 8000);
   }
 
   private buildClasses(type: string): void {
@@ -132,6 +137,59 @@ export class ProdutoEdicaoComponent implements OnInit {
     }
 
     this.classCss['alert-' + type] = true;
+  }
+
+  salvar(form: NgForm) {
+    this.message = {};
+    this.findBySku(this.f.sku.value);
+    let id = this.produto != undefined ? this.produto.id : null;
+    this.produto = new Produto(
+      id,
+      this.f.nome.value,
+      this.f.sku.value,
+      this.f.valorUnitario.value,
+      this.f.quantidadeEstoque.value,
+      this.f.subcategoria.value
+    );
+    this.produtoService.createOrUpdate(this.produto).subscribe((responseApi: ResponseApi) => {
+      this.produto = null;
+      this.form();
+      this.showMessage({
+        type: 'success',
+        text: `Produto cadastrado com sucesso`
+      });
+    }, err => {
+      this.showMessage({
+        type: 'error',
+        text: err['error']['errors'][0]
+      });
+    });
+
+  }
+
+  findBySku(sku: string) {
+    this.produtoService.findBySku(sku).subscribe((responseApi: ResponseApi) => {
+      this.produto = new Produto(responseApi['id'], responseApi['nome'], responseApi['sku'], responseApi['valorUnitario'], responseApi['quantidadeEstoque'], responseApi['categoria']);
+      this.formProduto.patchValue(this.produto);
+
+      this.formProduto.get('categoria').setValue(this.produto.categoria.categoriaPai);
+
+      this.findSubcategoriaPorCategoriaId();
+      
+      this.formProduto.get('subcategoria').setValue(this.produto.categoria);
+      
+
+    },
+      err => {
+        this.showMessage({
+          type: 'error',
+          text: err['error']['errors'][0]
+        });
+      });
+  }
+
+  compararCategorias(objeto1, objeto2): boolean {
+    return objeto1 && objeto2 ? objeto1.descricao === objeto2.descricao : objeto1 === objeto2;
   }
 
 }
