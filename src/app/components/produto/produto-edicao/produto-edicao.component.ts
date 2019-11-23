@@ -8,6 +8,7 @@ import { Categoria } from '../../../shared/model/categoria.model';
 import { ProdutoService } from '../../../shared/services/produto.service';
 import { Produto } from '../../../shared/model/produto.model';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-produto-edicao',
@@ -15,8 +16,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./produto-edicao.component.scss'],
   animations: [routerTransition()]
 })
-export class ProdutoEdicaoComponent implements OnInit {
 
+export class ProdutoEdicaoComponent implements OnInit {
   shared: SharedService;
   message: {};
   classCss: {};
@@ -61,16 +62,6 @@ export class ProdutoEdicaoComponent implements OnInit {
 
   get f() { return this.formProduto.controls; }
 
-  onSubmit() {
-    this.submitted = true;
-
-    if (this.formProduto.invalid) {
-      return;
-    }
-
-    alert('Sucesso!!! \n\n' + JSON.stringify(this.formProduto.value, null, 4));
-  }
-
   onReset() {
     this.submitted = false;
     this.formProduto.reset();
@@ -96,12 +87,6 @@ export class ProdutoEdicaoComponent implements OnInit {
           text: err['error']['errors'][0]
         });
       });
-  }
-
-  findSubcategoriaPorCategoriaId() {
-    this.categoriaService.findAll().subscribe(() => {
-      this.findSubcategoriaFiltradas();
-    });
   }
 
   findCategoriaAll() {
@@ -174,11 +159,11 @@ export class ProdutoEdicaoComponent implements OnInit {
 
       this.formProduto.get('categoria').setValue(this.produto.categoria.categoriaPai);
 
-      this.findSubcategoriaPorCategoriaId();
+      this.categoriaService.findAll().subscribe(() => {
+        this.findSubcategoriaFiltradas();
+      });
       
       this.formProduto.get('subcategoria').setValue(this.produto.categoria);
-      
-
     },
       err => {
         this.showMessage({
