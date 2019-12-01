@@ -12,7 +12,6 @@ import {
     MatIconModule } from '@angular/material';
 import { ProdutoEdicaoRoutingModule } from './produto-edicao-routing.module';
 import { ProdutoEdicaoComponent } from './produto-edicao.component';
-import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
     imports: [

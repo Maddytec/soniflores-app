@@ -8,7 +8,6 @@ import { Categoria } from '../../../shared/model/categoria.model';
 import { ProdutoService } from '../../../shared/services/produto.service';
 import { Produto } from '../../../shared/model/produto.model';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-produto-edicao',
@@ -65,6 +64,7 @@ export class ProdutoEdicaoComponent implements OnInit {
   onReset() {
     this.submitted = false;
     this.formProduto.reset();
+    this.produto = null;
   }
 
   findSubcategoriaFiltradas() {

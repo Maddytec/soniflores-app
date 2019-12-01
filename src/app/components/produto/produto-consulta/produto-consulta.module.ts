@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { ProdutoConsultaRoutingModule } from './produto-consulta-routing.module';
 import { PageHeaderModule } from '../../../shared';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { 
-    MatTableModule, 
-    MatSortModule, 
-    MatFormFieldModule, 
-    MatInputModule, 
-    MatPaginatorModule, 
-    MatIconModule } from '@angular/material';
+import {
+    MatTableModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatIconModule
+} from '@angular/material';
 import { ProdutoConsultaComponent } from './produto-consulta.component';
 
 @NgModule({
@@ -20,7 +20,7 @@ import { ProdutoConsultaComponent } from './produto-consulta.component';
         ProdutoConsultaRoutingModule,
         PageHeaderModule,
         CommonModule,
-        FormsModule, 
+        FormsModule,
         PageHeaderModule,
         ReactiveFormsModule,
         MatTableModule,
@@ -33,4 +33,4 @@ import { ProdutoConsultaComponent } from './produto-consulta.component';
     ],
     declarations: [ProdutoConsultaComponent]
 })
-export class ProdutoConsultaModule {}
+export class ProdutoConsultaModule { }

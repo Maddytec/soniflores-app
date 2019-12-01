@@ -43,9 +43,9 @@ export class ProdutoConsultaComponent implements OnInit {
   length: number = 0;
   pageSize: number = 5;
   pageSizeOptions = ['5', '10', '30', '50', '100'];
-  produtos: Produto[] = new Array<Produto>();
-  dataSource: MatTableDataSource<Produto>;
   pageEvent: PageEvent;
+  dataSource: MatTableDataSource<Produto>;
+  produtos: Produto[] = new Array<Produto>();
   displayedColumns: string[] = [
     'id',
     'sku', 
@@ -86,20 +86,6 @@ export class ProdutoConsultaComponent implements OnInit {
         text: err['error']['errors'][0]
       });
     });
-  }
-
-  findAllLazy() {
-    this.produtoService.findAllLazy(this.pageIndex, this.pageSize).subscribe((responseApi: ResponseApi) => {
-      this.produtos = responseApi['elements'];
-      this.length = responseApi['totalElements'];
-      this.dataSource = new MatTableDataSource<Produto>(this.produtos);
-    },
-      err => {
-        this.showMessage({
-          type: 'error',
-          text: err['error']['errors'][0]
-        });
-      });
   }
 
   private showMessage(message: { type: string, text: string }): void {
