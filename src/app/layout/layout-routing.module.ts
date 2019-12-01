@@ -17,6 +17,9 @@ const routes: Routes = [
             { path: 'produto', loadChildren: '../components/produto/produto-edicao/produto-edicao.module#ProdutoEdicaoModule' },
             { path: 'produto/:id', loadChildren: '../components/produto/produto-edicao/produto-edicao.module#ProdutoEdicaoModule' },
             { path: 'produto-consulta', loadChildren: '../components/produto/produto-consulta/produto-consulta.module#ProdutoConsultaModule' },
+            { path: 'categoria', loadChildren: '../components/categoria/categoria-edicao/categoria-edicao.module#CategoriaEdicaoModule' },
+            { path: 'categoria/:id', loadChildren: '../components/categoria/categoria-edicao/categoria-edicao.module#CategoriaEdicaoModule' },
+            { path: 'categoria-consulta', loadChildren: '../components/categoria/categoria-consulta/categoria-consulta.module#CategoriaConsultaModule' },
             { path: 'bs-element', loadChildren: './bs-element/bs-element.module#BsElementModule' },
             { path: 'grid', loadChildren: './grid/grid.module#GridModule' },
             { path: 'components', loadChildren: './bs-component/bs-component.module#BsComponentModule' },
@@ -29,4 +32,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class LayoutRoutingModule {}
+export class LayoutRoutingModule { }

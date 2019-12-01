@@ -94,6 +94,31 @@
         </div>
 
         <div class="nested-menu">
+                <a class="list-group-item" (click)="addExpandClass('pages_categoria')">
+                    <i class="fa fa-plus"></i>&nbsp;
+                    <span>{{ 'Categoria de Produto' | translate }}</span>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'pages_categoria'">
+                    <ul class="submenu">
+                        <li>
+                            <a [routerLink]="['/categoria']" [routerLinkActive]="['router-link-active']"
+                                class="list-group-item">
+                                <i class="fa fa-fw fa-edit"></i>&nbsp;
+                                <span style=" white-space: normal;">{{ 'Cadastrar categoria' | translate }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['/categoria-consulta']" [routerLinkActive]="['router-link-active']"
+                                class="list-group-item">
+                                <i class="fa fa-fw fa-edit"></i>&nbsp;
+                                <span>{{ 'Consultar categoria' | translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+
+        <div class="nested-menu">
                 <a class="list-group-item" (click)="addExpandClass('pages_usuarios')">
                     <i class="fa fa-plus"></i>&nbsp;
                     <span>{{ 'Usuario' | translate }}</span>

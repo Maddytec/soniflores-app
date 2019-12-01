@@ -1,0 +1,32 @@
+<div [@routerTransition] style="margin-left: 20px;">
+    <app-page-header [heading]="form.get('id').value != '' ? 'Atualização de Categoria': 'Cadastro de Categoria'" [icon]="'fa-edit'"></app-page-header>
+
+    <div [ngClass]="classCss" role="alert" *ngIf="message"><strong>{{ message.text }}</strong></div>
+
+    <div class="card m-3">
+        <h4 *ngIf="form.get('id').value != ''" class="card-header">Atualização de Categoria</h4>
+        <h4 *ngIf="form.get('id').value == ''" class="card-header">Cadastro de Categoria</h4>
+        <div class="card-body mat-elevation-z8">
+            <form [formGroup]="form" (ngSubmit)="salvar(form.value)">
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <label for="id">Código</label>
+                        <input disabled formControlName="id" type="text" class="form-control" name="id" id="id"
+                            placeholder="Código">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="nome">Descrição</label>
+                        <input formControlName="descricao" type="text" class="form-control" id="descricao"
+                            placeholder="Nome da categoria">
+                    </div>
+                </div>
+                <input class="btn btn-secondary" type="reset" (click)="onReset()" value="Cancelar">
+                <input
+                    [disabled]="!form.valid || !form.get('descricao').touched || !form.get('descricao').dirty"
+                    class="btn btn-primary" 
+                    type="submit" 
+                    value="Salvar">
+            </form>
+        </div>
+    </div>
+</div>
