@@ -1,0 +1,25 @@
+table {
+    width: 100%;
+  }
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+
+button {
+    border-bottom-width: 0px;
+    border-top-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    background-color: white;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.container > * {
+  width: 100%;
+}

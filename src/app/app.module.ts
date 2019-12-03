@@ -44,6 +44,8 @@ import { GrupoComponent } from './components/grupo/grupo.component';
 import { GrupoService } from './shared/services/grupo.service';
 import { ProdutoService } from './shared/services/produto.service';
 import { CategoriaService } from './shared/services/categoria.service';
+import { SubcategoriaConsultaComponent } from './components/categoria/subcategoria-consulta/subcategoria-consulta.component';
+import { SubcategoriaEdicaoComponent } from './components/categoria/subcategoria-edicao/subcategoria-edicao.component';
 
 registerLocaleData(localept, 'pt');
 
