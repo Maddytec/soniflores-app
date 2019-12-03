@@ -25,7 +25,7 @@ export class ProdutoEdicaoComponent implements OnInit {
   subcategoriasFiltradas: Categoria[] = new Array<Categoria>();
   produto: Produto;
 
-  formProduto: FormGroup;
+  form: FormGroup;
   submitted = false;
 
   constructor(
@@ -38,7 +38,7 @@ export class ProdutoEdicaoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.form();
+    this.formulario();
     this.findCategoriaAll();
     this.findSubcategoriaAll();
 
@@ -48,8 +48,8 @@ export class ProdutoEdicaoComponent implements OnInit {
     }
   }
 
-  form() {
-    this.formProduto = this.formBuider.group({
+  formulario() {
+    this.form = this.formBuider.group({
       sku: [''],
       nome: ['', Validators.required],
       categoria: [null, Validators.required],
@@ -59,11 +59,11 @@ export class ProdutoEdicaoComponent implements OnInit {
     });
   }
 
-  get f() { return this.formProduto.controls; }
+  get f() { return this.form.controls; }
 
   onReset() {
     this.submitted = false;
-    this.formProduto.reset();
+    this.form.reset();
     this.produto = null;
   }
 
@@ -138,7 +138,7 @@ export class ProdutoEdicaoComponent implements OnInit {
     );
     this.produtoService.createOrUpdate(this.produto).subscribe((responseApi: ResponseApi) => {
       this.produto = null;
-      this.form();
+      this.formulario();
       this.showMessage({
         type: 'success',
         text: `Produto cadastrado com sucesso`
@@ -155,15 +155,15 @@ export class ProdutoEdicaoComponent implements OnInit {
   findBySku(sku: string) {
     this.produtoService.findBySku(sku).subscribe((responseApi: ResponseApi) => {
       this.produto = new Produto(responseApi['id'], responseApi['nome'], responseApi['sku'], responseApi['valorUnitario'], responseApi['quantidadeEstoque'], responseApi['categoria']);
-      this.formProduto.patchValue(this.produto);
+      this.form.patchValue(this.produto);
 
-      this.formProduto.get('categoria').setValue(this.produto.categoria.categoriaPai);
+      this.form.get('categoria').setValue(this.produto.categoria.categoriaPai);
 
       this.categoriaService.findAll().subscribe(() => {
         this.findSubcategoriaFiltradas();
       });
       
-      this.formProduto.get('subcategoria').setValue(this.produto.categoria);
+      this.form.get('subcategoria').setValue(this.produto.categoria);
     },
       err => {
         this.showMessage({

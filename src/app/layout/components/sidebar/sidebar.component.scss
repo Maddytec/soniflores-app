@@ -4,9 +4,9 @@ $topnav-background-color: darkgreen;
     position: fixed;
     z-index: 1000;
     top: 56px;
-    left: 250px;
-    width: 250px;
-    margin-left: -250px;
+    left: 270px;
+    width: 270px;
+    margin-left: -270px;
     margin-bottom: 48px;
     border: none;
     border-radius: 0;
@@ -30,7 +30,7 @@ $topnav-background-color: darkgreen;
             color: #999;
             text-decoration: none;
             .fa {
-                margin-right: 10px;
+                margin-right: 0px;
             }
         }
         a:hover {
@@ -123,6 +123,7 @@ $topnav-background-color: darkgreen;
                 a {
                     color: #fff;
                     padding: 10px;
+                    letter-spacing: 0px;
                     display: block;
                 }
             }
@@ -162,7 +163,7 @@ $topnav-background-color: darkgreen;
 
 .toggle-button {
     position: fixed;
-    width: 250px;
+    width: 270px;
     cursor: pointer;
     padding: 12px;
     bottom: 0;
