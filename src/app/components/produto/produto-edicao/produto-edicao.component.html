@@ -6,7 +6,7 @@
     <div class="card m-3">
         <h4 class="card-header">Cadastro de Produto</h4>
         <div class="card-body mat-elevation-z8">
-            <form [formGroup]="form" (ngSubmit)="salvar(formProduto.value)">
+            <form [formGroup]="form" (ngSubmit)="salvar(form.value)">
                 <div class="row">
                     <div *ngIf="form.get('sku').value != ''" class="form-group col-md-2">
                         <label for="sku">SKU</label>
