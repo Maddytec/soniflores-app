@@ -1,15 +1,15 @@
 <div [@routerTransition] style="margin-left: 20px;">
-    <app-page-header [heading]="form.get('id').value != '' ? 'Atualização de Subcategoria': 'Cadastro de Subcategoria'" [icon]="'fa-edit'"></app-page-header>
+    <app-page-header [heading]="form.get('id').value > 0 ? 'Atualização de Subcategoria': 'Cadastro de Subcategoria'" [icon]="'fa-edit'"></app-page-header>
 
     <div [ngClass]="classCss" role="alert" *ngIf="message"><strong>{{ message.text }}</strong></div>
 
     <div class="card m-3">
-        <h4 *ngIf="form.get('id').value != ''" class="card-header">Atualização de Subcategoria</h4>
-        <h4 *ngIf="form.get('id').value == ''" class="card-header">Cadastro de Subcategoria</h4>
+        <h4 *ngIf="form.get('id').value > 0" class="card-header">Atualização de Subcategoria</h4>
+        <h4 *ngIf="form.get('id').value === null" class="card-header">Cadastro de Subcategoria</h4>
         <div class="card-body mat-elevation-z8">
             <form [formGroup]="form" (ngSubmit)="salvar(form.value)">
                 <div class="row">
-                    <div *ngIf="form.get('id').value != ''" class="form-group col-md-2">
+                    <div *ngIf="form.get('id').value > 0" class="form-group col-md-2">
                         <label for="id">Código</label>
                         <input disabled formControlName="id" type="text" class="form-control" name="id" id="id"
                             placeholder="Código">
@@ -35,7 +35,7 @@
                 </div>
                 <input class="btn btn-secondary" type="reset" (click)="onReset()" value="Cancelar">
                 <input 
-                    [disabled]="!form.valid || !form.get('descricao').touched || !form.get('descricao').dirty"
+                    [disabled]="!form.valid || (!form.get('descricao').dirty && !form.get('categoria').dirty)"
                     class="btn btn-primary" 
                     type="submit" 
                     value="Salvar">

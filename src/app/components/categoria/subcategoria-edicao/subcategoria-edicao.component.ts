@@ -5,8 +5,6 @@ import { SharedService } from '../../../shared/services/shared.service';
 import { CategoriaService } from '../../../shared/services/categoria.service';
 import { ResponseApi } from '../../../shared/model/response-api';
 import { Categoria } from '../../../shared/model/categoria.model';
-import { ProdutoService } from '../../../shared/services/produto.service';
-import { Produto } from '../../../shared/model/produto.model';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -48,7 +46,7 @@ export class SubcategoriaEdicaoComponent implements OnInit {
 
   inicializarFormulario() {
     this.form = this.formBuider.group({
-      id: [''],
+      id: [null],
       descricao: ['', Validators.required],
       categoria: [null, Validators.required]
     });
@@ -60,6 +58,7 @@ export class SubcategoriaEdicaoComponent implements OnInit {
     this.submitted = false;
     this.form.reset();
     this.subcategoria = null;
+    this.inicializarFormulario();
     this.findCategoriaAll();
   }
 
