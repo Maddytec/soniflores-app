@@ -38,7 +38,7 @@ export class ProdutoEdicaoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.formulario();
+    this.inicializarformulario();
     this.findCategoriaAll();
     this.findSubcategoriaAll();
 
@@ -48,9 +48,10 @@ export class ProdutoEdicaoComponent implements OnInit {
     }
   }
 
-  formulario() {
+  inicializarformulario() {
     this.form = this.formBuider.group({
-      sku: [''],
+      id: [null],
+      sku: [null, Validators.required],
       nome: ['', Validators.required],
       categoria: [null, Validators.required],
       subcategoria: [null, Validators.required],
@@ -64,7 +65,9 @@ export class ProdutoEdicaoComponent implements OnInit {
   onReset() {
     this.submitted = false;
     this.form.reset();
-    this.produto = null;
+    this.produto = null
+    this.inicializarformulario();
+    this.findCategoriaAll();
   }
 
   findSubcategoriaFiltradas() {
@@ -126,7 +129,9 @@ export class ProdutoEdicaoComponent implements OnInit {
 
   salvar(form: NgForm) {
     this.message = {};
-    this.findBySku(this.f.sku.value);
+    if(this.f.sku.value != null){
+     this.findBySku(this.f.sku.value);
+    }
     let id = this.produto != undefined ? this.produto.id : null;
     this.produto = new Produto(
       id,
@@ -138,7 +143,7 @@ export class ProdutoEdicaoComponent implements OnInit {
     );
     this.produtoService.createOrUpdate(this.produto).subscribe((responseApi: ResponseApi) => {
       this.produto = null;
-      this.formulario();
+      this.inicializarformulario();
       this.showMessage({
         type: 'success',
         text: `Produto cadastrado com sucesso`

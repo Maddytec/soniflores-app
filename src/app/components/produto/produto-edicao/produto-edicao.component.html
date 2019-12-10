@@ -1,15 +1,16 @@
 <div [@routerTransition] style="margin-left: 20px;">
-    <app-page-header [heading]="'Cadastro de Produto'" [icon]="'fa-edit'"></app-page-header>
+    <app-page-header [heading]="form.get('id').value > 0 ? 'Atualização de Produto': 'Cadastro de Produto'" [icon]="'fa-edit'"></app-page-header>
 
     <div [ngClass]="classCss" role="alert" *ngIf="message"><strong>{{ message.text }}</strong></div>
 
     <div class="card m-3">
-        <h4 class="card-header">Cadastro de Produto</h4>
+        <h4 *ngIf="form.get('id').value > 0" class="card-header">Atualização de Produto</h4>
+        <h4 *ngIf="form.get('id').value === null" class="card-header">Cadastro de Produto</h4>
         <div class="card-body mat-elevation-z8">
             <form [formGroup]="form" (ngSubmit)="salvar(form.value)">
                 <div class="row">
-                    <div *ngIf="form.get('sku').value != ''" class="form-group col-md-2">
-                        <label for="sku">SKU</label>
+                    <div class="form-group col-md-2">
+                        <label for="sku">Código</label>
                         <input formControlName="sku" type="text" class="form-control" name="sku" id="sku"
                             placeholder="Código">
                     </div>
@@ -38,7 +39,7 @@
                         <label for="subCategoria">Subcategoria</label>
                         <div class="input-group mb-3">
                             <select formControlName="subcategoria" class="custom-select" id="inputGroupSelect01" [compareWith]="compararCategorias">
-                                <option [value]="null" disabled>Selecione</option>
+                                <option [value]="null">Selecione</option>
                                 <option *ngFor="let subcategoria of subcategoriasFiltradas" [ngValue]="subcategoria">
                                     {{ subcategoria.descricao }}</option>
                             </select>
@@ -57,7 +58,9 @@
                     </div>
                 </div>
                 <input class="btn btn-secondary" type="reset" (click)="onReset()" value="Cancelar">
-                <input class="btn btn-primary" type="submit" value="Salvar">
+                <input [disabled]="!form.valid"
+                    class="btn btn-primary" 
+                    type="submit" value="Salvar">
             </form>
         </div>
     </div>

@@ -11,7 +11,7 @@ export class ProdutoService {
   }
 
   createOrUpdate(produto: Produto){
-    if(produto.id != null && produto.id != ''){
+    if(produto.id != null && produto.id != null){
       return this.http.put(`${API}/produto/${produto.id}`, produto);
     } else {
       produto.id = null;
