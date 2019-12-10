@@ -43,7 +43,7 @@ export class CategoriaEdicaoComponent implements OnInit {
 
   inicializarFormulario() {
     this.form = this.formBuider.group({
-      id: [''],
+      id: [null],
       descricao: ['', Validators.required],
     });
   }
@@ -54,6 +54,7 @@ export class CategoriaEdicaoComponent implements OnInit {
     this.submitted = false;
     this.form.reset();
     this.categoria = null;
+    this.inicializarFormulario();
   }
 
   private showMessage(message: { type: string, text: string }): void {
