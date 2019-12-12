@@ -47,6 +47,7 @@ import { CategoriaService } from './shared/services/categoria.service';
 import { SubcategoriaConsultaComponent } from './components/categoria/subcategoria-consulta/subcategoria-consulta.component';
 import { SubcategoriaEdicaoComponent } from './components/categoria/subcategoria-edicao/subcategoria-edicao.component';
 import { ClienteConsultaComponent } from './components/cliente/cliente-consulta/cliente-consulta.component';
+import { ClienteService } from './shared/services/cliente.service';
 
 registerLocaleData(localept, 'pt');
 
@@ -111,6 +112,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         ProdutoService,
         GrupoService,
         CategoriaService,
+        ClienteService,
         AuthGuard,
         SharedService,
         DialogService,
