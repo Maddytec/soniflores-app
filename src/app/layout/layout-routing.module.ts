@@ -11,6 +11,7 @@ const routes: Routes = [
             { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
             { path: 'charts', loadChildren: './charts/charts.module#ChartsModule' },
             { path: 'tables', loadChildren: './tables/tables.module#TablesModule' },
+            { path: 'cliente-consulta', loadChildren: '../components/cliente/cliente-consulta/cliente-consulta.module#ClienteConsultaModule' },
             { path: 'users', loadChildren: './user/user-new/user.module#UserModule' },
             { path: 'users/:id', loadChildren: './user/user-new/user.module#UserModule' },
             { path: 'users-list', loadChildren: './user/user-list/user-list.module#UserListModule' },

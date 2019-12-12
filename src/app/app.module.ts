@@ -46,6 +46,7 @@ import { ProdutoService } from './shared/services/produto.service';
 import { CategoriaService } from './shared/services/categoria.service';
 import { SubcategoriaConsultaComponent } from './components/categoria/subcategoria-consulta/subcategoria-consulta.component';
 import { SubcategoriaEdicaoComponent } from './components/categoria/subcategoria-edicao/subcategoria-edicao.component';
+import { ClienteConsultaComponent } from './components/cliente/cliente-consulta/cliente-consulta.component';
 
 registerLocaleData(localept, 'pt');
 
@@ -104,7 +105,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         MatSortModule,  
         MatSlideToggleModule  
       ],
-    declarations: [AppComponent, GrupoComponent],
+    declarations: [AppComponent],
     providers: [
         UserService,
         ProdutoService,

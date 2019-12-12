@@ -12,21 +12,14 @@
             <li class="nested" [class.expand]="showMenu === 'pages_cliente'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']"
+                        <a [routerLink]="['/cliente']"
                             class="list-group-item">
                             <i class="fa fa-fw fa-edit"></i>&nbsp;
                             <span>{{ 'Cadastrar cliente' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']"
-                            class="list-group-item">
-                            <i class="fa fa-fw fa-edit"></i>&nbsp;
-                            <span>{{ 'Editar cliente' | translate }}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']"
+                        <a [routerLink]="['/cliente-consulta']"
                             class="list-group-item">
                             <i class="fa fa-fw fa-edit"></i>&nbsp;
                             <span>{{ 'Consultar cliente' | translate }}</span>
@@ -76,14 +69,14 @@
             <li class="nested" [class.expand]="showMenu === 'pages'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/produto']" [routerLinkActive]="['router-link-active']"
+                        <a [routerLink]="['/produto']"
                             class="list-group-item">
                             <i class="fa fa-fw fa-edit"></i>&nbsp;
                             <span>{{ 'Cadastrar produto' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/produto-consulta']" [routerLinkActive]="['router-link-active']"
+                        <a [routerLink]="['/produto-consulta']"
                             class="list-group-item">
                             <i class="fa fa-fw fa-edit"></i>&nbsp;
                             <span>{{ 'Consultar produto' | translate }}</span>
