@@ -1,0 +1,69 @@
+<div [@routerTransition] style="margin-left: 20px;">
+    <app-page-header [heading]="form.get('id').value > 0 ? 'Atualização de Cliente': 'Cadastro de Cliente'" [icon]="'fa-edit'"></app-page-header>
+    <div [ngClass]="classCss" role="alert" *ngIf="message"><strong>{{ message.text }}</strong></div>
+
+    <div class="card m-3">
+        <h4 *ngIf="form.get('id').value > 0" class="card-header">Atualização de Cliente</h4>
+        <h4 *ngIf="form.get('id').value === null" class="card-header">Cadastro de Cliente</h4>
+        <div class="card-body mat-elevation-z8">
+            <form [formGroup]="form" (ngSubmit)="salvar(form.value)">
+                <div class="row">
+                    <div *ngIf="form.get('id').value > 0" 
+                        class="form-group col-md-2">
+                        <label for="id">Código</label>
+                        <input disabled formControlName="id" type="text" class="form-control" name="id" id="id" placeholder="Código">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="nome">Nome</label>
+                        <input formControlName="nome" type="text" class="form-control" id="nome" placeholder="Nome do cliente">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label class="radio-inline col-md-4" for="fisica" >
+                            <input formControlName="tipo" value="FISICA" type="radio" id="fisica" checked>Pessoa Física
+                        </label>
+                        <label class="radio-inline" for="juridica">
+                            <input formControlName="tipo" value="JURIDICA" type="radio" id="juridica">Pessoa Jurídica
+                        </label>
+                    </div>    
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-4">
+                      <label *ngIf="form.get('tipo').value === 'FISICA'" for="documentoReceitaFederal">CPF</label>
+                      <label *ngIf="form.get('tipo').value === 'JURIDICA'" for="documentoReceitaFederal">CNPJ</label>
+                        <input formControlName="documentoReceitaFederal" 
+                               type="text" 
+                               name="documentoReceitaFederal" 
+                               id="documentoReceitaFederal" 
+                               class="form-control" 
+                               placeholder="Documento">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-4">
+                      <label for="foneMovel">Fone móvel</label>
+                      <input formControlName="foneMovel" type="text" id="foneMovel" class="form-control" placeholder="Fone móvel">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="foneFixo">Fone fixo</label>
+                      <input formControlName="foneFixo" type="text" name="foneFixo" id="foneFixo" class="form-control" placeholder="Fone fixo" aria-describedby="helpId">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-8">
+                      <label for="email">Email</label>
+                      <input formControlName="email" type="email" name="email" id="email" class="form-control" placeholder="Email" aria-describedby="helpId">
+                    </div>
+                </div>
+
+                <input class="btn btn-secondary" type="reset" (click)="onReset()" value="Cancelar">
+                <input
+                    [disabled]="!form.valid || !form.get('nome').dirty"
+                    class="btn btn-primary" 
+                    type="submit" 
+                    value="Salvar">
+            </form>
+        </div>
+    </div>
+</div>

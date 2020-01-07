@@ -48,6 +48,7 @@ import { SubcategoriaConsultaComponent } from './components/categoria/subcategor
 import { SubcategoriaEdicaoComponent } from './components/categoria/subcategoria-edicao/subcategoria-edicao.component';
 import { ClienteConsultaComponent } from './components/cliente/cliente-consulta/cliente-consulta.component';
 import { ClienteService } from './shared/services/cliente.service';
+import { ClienteEdicaoComponent } from './components/cliente/cliente-edicao/cliente-edicao.component';
 
 registerLocaleData(localept, 'pt');
 

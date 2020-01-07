@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { PageHeaderModule } from '../../../shared';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CategoriaEdicaoRoutingModule } from './categoria-edicao-routing.module';
+import { CategoriaEdicaoComponent } from './categoria-edicao.component';
 import {
   MatTableModule,
   MatSortModule,
@@ -11,8 +13,6 @@ import {
   MatPaginatorModule,
   MatIconModule
 } from '@angular/material';
-import { CategoriaEdicaoRoutingModule } from './categoria-edicao-routing.module';
-import { CategoriaEdicaoComponent } from './categoria-edicao.component';
 
 @NgModule({
   imports: [
@@ -20,7 +20,6 @@ import { CategoriaEdicaoComponent } from './categoria-edicao.component';
     ReactiveFormsModule,
     CommonModule,
     CategoriaEdicaoRoutingModule,
-    PageHeaderModule,
     PageHeaderModule,
     MatTableModule,
     MatSortModule,

@@ -95,7 +95,7 @@ export class ClienteConsultaComponent implements OnInit {
   }
 
   edit(id: string) {
-    this.router.navigate(['/categoria', id]);
+    this.router.navigate(['/cliente', id]);
   }
 
   delete(id: string) {
@@ -118,6 +118,5 @@ export class ClienteConsultaComponent implements OnInit {
         }
       });
   }
-
 
 }
