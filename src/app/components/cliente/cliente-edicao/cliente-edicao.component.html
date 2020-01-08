@@ -33,6 +33,7 @@
                       <label *ngIf="form.get('tipo').value === 'FISICA'" for="documentoReceitaFederal">CPF</label>
                       <label *ngIf="form.get('tipo').value === 'JURIDICA'" for="documentoReceitaFederal">CNPJ</label>
                         <input formControlName="documentoReceitaFederal" 
+                               [mask]="form?.get('tipo')?.value === 'FISICA' ? '000.000.000-00' : '00.000.000/0000-00'"         
                                type="text" 
                                name="documentoReceitaFederal" 
                                id="documentoReceitaFederal" 

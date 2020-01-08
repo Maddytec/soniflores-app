@@ -40,15 +40,11 @@ import {
   MatSortModule,
   MatPaginatorModule
 } from '@angular/material';
-import { GrupoComponent } from './components/grupo/grupo.component';  
 import { GrupoService } from './shared/services/grupo.service';
 import { ProdutoService } from './shared/services/produto.service';
 import { CategoriaService } from './shared/services/categoria.service';
-import { SubcategoriaConsultaComponent } from './components/categoria/subcategoria-consulta/subcategoria-consulta.component';
-import { SubcategoriaEdicaoComponent } from './components/categoria/subcategoria-edicao/subcategoria-edicao.component';
-import { ClienteConsultaComponent } from './components/cliente/cliente-consulta/cliente-consulta.component';
 import { ClienteService } from './shared/services/cliente.service';
-import { ClienteEdicaoComponent } from './components/cliente/cliente-edicao/cliente-edicao.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 registerLocaleData(localept, 'pt');
 
@@ -88,6 +84,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         MatSlideToggleModule,
         MatPaginatorModule,
         AppRoutingModule,
+        NgxMaskModule.forRoot()
     ],
     exports: [  
         MatButtonModule,  
@@ -104,8 +101,8 @@ export const createTranslateLoader = (http: HttpClient) => {
         MatSelectModule,  
         MatOptionModule,
         MatTableModule,
-        MatSortModule,  
-        MatSlideToggleModule  
+        MatSortModule,
+        MatSlideToggleModule
       ],
     declarations: [AppComponent],
     providers: [

@@ -6,7 +6,6 @@ import { ClienteService } from '../../../shared/services/cliente.service';
 import { ActivatedRoute } from '@angular/router';
 import { ResponseApi } from '../../../shared/model/response-api';
 import { Cliente } from '../../../shared/model/cliente.model';
-import { TextField } from 'material-ui/TextField';
 
 @Component({
   selector: 'app-cliente-edicao',

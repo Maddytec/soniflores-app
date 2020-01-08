@@ -4,6 +4,7 @@ import { ClienteEdicaoComponent } from './cliente-edicao.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageHeaderModule } from '../../../shared';
 import { ClienteEdicaoRoutingModule } from './cliente-edicao-routing.module';
+import { NgxMaskModule } from 'ngx-mask';
 import { 
   MatTableModule,
   MatSortModule, 
@@ -26,7 +27,8 @@ import {
       MatFormFieldModule,
       MatInputModule,
       MatPaginatorModule,
-      MatIconModule
+      MatIconModule,
+      NgxMaskModule.forChild()
   ],
   declarations: [ClienteEdicaoComponent]
 })
