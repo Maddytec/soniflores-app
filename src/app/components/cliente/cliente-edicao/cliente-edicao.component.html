@@ -44,11 +44,23 @@
                 <div class="row">
                     <div class="form-group col-md-4">
                       <label for="foneMovel">Fone móvel</label>
-                      <input formControlName="foneMovel" type="text" id="foneMovel" class="form-control" placeholder="Fone móvel">
+                      <input formControlName="foneMovel" 
+                             [mask] = "'(00) 00000-0000'"
+                             type="text" 
+                             id="foneMovel" 
+                             class="form-control" 
+                             placeholder="Fone móvel">
                     </div>
                     <div class="form-group col-md-4">
                       <label for="foneFixo">Fone fixo</label>
-                      <input formControlName="foneFixo" type="text" name="foneFixo" id="foneFixo" class="form-control" placeholder="Fone fixo" aria-describedby="helpId">
+                      <input formControlName="foneFixo" 
+                             [mask] = "'(00) 0000-0000'"
+                             type="text" 
+                             name="foneFixo" 
+                             id="foneFixo" 
+                             class="form-control" 
+                             placeholder="Fone fixo" 
+                             aria-describedby="helpId">
                     </div>
                 </div>
                 <div class="row">
