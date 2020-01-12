@@ -32,6 +32,10 @@ export class ClienteService {
     return this.http.get(`${API}/cliente/${id}`)
   }
 
+  findByEmail(email: string) {
+    return this.http.get(`${API}/cliente/email/${email}`)
+  }
+
   delete(id: string){
     return this.http.delete(`${API}/cliente/${id}`)
   }

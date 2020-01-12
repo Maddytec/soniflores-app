@@ -38,7 +38,7 @@ export class ProdutoEdicaoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.inicializarformulario();
+    this.inicializarFormulario();
     this.findCategoriaAll();
     this.findSubcategoriaAll();
 
@@ -48,7 +48,7 @@ export class ProdutoEdicaoComponent implements OnInit {
     }
   }
 
-  inicializarformulario() {
+  inicializarFormulario() {
     this.form = this.formBuider.group({
       id: [null],
       sku: [null, Validators.required],
@@ -66,7 +66,7 @@ export class ProdutoEdicaoComponent implements OnInit {
     this.submitted = false;
     this.form.reset();
     this.produto = null
-    this.inicializarformulario();
+    this.inicializarFormulario();
     this.findCategoriaAll();
   }
 
@@ -143,7 +143,7 @@ export class ProdutoEdicaoComponent implements OnInit {
     );
     this.produtoService.createOrUpdate(this.produto).subscribe((responseApi: ResponseApi) => {
       this.produto = null;
-      this.inicializarformulario();
+      this.inicializarFormulario();
       this.showMessage({
         type: 'success',
         text: `Produto cadastrado com sucesso`
