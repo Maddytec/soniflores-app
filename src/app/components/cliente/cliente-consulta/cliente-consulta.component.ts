@@ -99,14 +99,14 @@ export class ClienteConsultaComponent implements OnInit {
   }
 
   delete(id: string) {
-    this.dialogService.confirm('Deseja realmente excluir o cliente?')
+    this.dialogService.confirm('Deseja realmente excluir cliente?')
       .then((canDelete: boolean) => {
         if (canDelete) {
           this.message = {};
           this.clienteService.delete(id).subscribe((responseApi: ResponseApi) => {
             this.showMessage({
               type: 'success',
-              text: 'Cliente excluida'
+              text: 'Cliente excluido'
             });
             TableUtils.deleteRowDataTable(id, this.dataSource, this.paginator);
           }, err => {
