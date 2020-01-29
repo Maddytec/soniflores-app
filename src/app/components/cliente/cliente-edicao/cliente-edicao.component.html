@@ -1,5 +1,6 @@
 <div [@routerTransition] style="margin-left: 20px;">
-    <app-page-header [heading]="form.get('id').value > 0 ? 'Atualização de Cliente': 'Cadastro de Cliente'" [icon]="'fa-edit'"></app-page-header>
+    <app-page-header [heading]="form.get('id').value > 0 ? 'Atualização de Cliente': 'Cadastro de Cliente'"
+        [icon]="'fa-edit'"></app-page-header>
     <div [ngClass]="classCss" role="alert" *ngIf="message"><strong>{{ message.text }}</strong></div>
 
     <div class="card m-3">
@@ -8,74 +9,196 @@
         <div class="card-body mat-elevation-z8">
             <form [formGroup]="form" (ngSubmit)="salvar(form.value)">
                 <div class="row">
-                    <div *ngIf="form.get('id').value > 0" 
-                        class="form-group col-md-2">
+                    <div *ngIf="form.get('id').value > 0" class="form-group col-md-2">
                         <label for="id">Código</label>
-                        <input disabled formControlName="id" type="text" class="form-control" name="id" id="id" placeholder="Código">
+                        <input 
+                            disabled 
+                            formControlName="id" 
+                            type="text" 
+                            class="form-control" 
+                            name="id" 
+                            id="id"
+                            placeholder="Código">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="nome">Nome</label>
-                        <input formControlName="nome" type="text" class="form-control" id="nome" placeholder="Nome do cliente">
+                        <input 
+                            formControlName="nome" 
+                            type="text" 
+                            class="form-control" 
+                            id="nome"
+                            placeholder="Nome do cliente">
+                        <div *ngIf="form.get('nome').invalid && (form.get('nome').dirty ||
+                            form.get('nome').touched)" class="alert alert-danger"> 
+                            O Nome é Obrigatório 
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6">
-                        <label class="radio-inline col-md-4" for="fisica" >
-                            <input formControlName="tipo" value="FISICA" type="radio" id="fisica" checked>Pessoa Física
+                        <label class="radio-inline col-md-4" for="fisica">
+                            <input 
+                                formControlName="tipo" 
+                                value="FISICA" 
+                                type="radio" 
+                                id="fisica" checked>
+                                Pessoa Física
                         </label>
-                        <label class="radio-inline" for="juridica">
-                            <input formControlName="tipo" value="JURIDICA" type="radio" id="juridica">Pessoa Jurídica
+                        <label class="radio-inline" 
+                               for="juridica">
+                            <input formControlName="tipo" 
+                                   value="JURIDICA" 
+                                   type="radio" 
+                                   id="juridica">
+                                   Pessoa Jurídica
                         </label>
-                    </div>    
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-4">
-                      <label *ngIf="form.get('tipo').value === 'FISICA'" for="documentoReceitaFederal">CPF</label>
-                      <label *ngIf="form.get('tipo').value === 'JURIDICA'" for="documentoReceitaFederal">CNPJ</label>
-                        <input formControlName="documentoReceitaFederal" 
-                               [mask]="form?.get('tipo')?.value === 'FISICA' ? '000.000.000-00' : '00.000.000/0000-00'"         
-                               type="text" 
-                               name="documentoReceitaFederal" 
-                               id="documentoReceitaFederal" 
-                               class="form-control" 
-                               placeholder="Documento">
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-4">
-                      <label for="foneMovel">Fone móvel</label>
-                      <input formControlName="foneMovel" 
-                             [mask] = "'(00) 00000-0000'"
-                             type="text" 
-                             id="foneMovel" 
-                             class="form-control" 
-                             placeholder="Fone móvel">
+                        <label *ngIf="form.get('tipo').value === 'FISICA'" for="documentoReceitaFederal">CPF</label>
+                        <label *ngIf="form.get('tipo').value === 'JURIDICA'" for="documentoReceitaFederal">CNPJ</label>
+                        <input formControlName="documentoReceitaFederal"
+                            [mask]="form?.get('tipo')?.value === 'FISICA' ? '000.000.000-00' : '00.000.000/0000-00'"
+                            type="text" name="documentoReceitaFederal" 
+                            id="documentoReceitaFederal" 
+                            class="form-control"
+                            placeholder="Documento">
+                        <div *ngIf="form.get('documentoReceitaFederal').invalid && (form.get('documentoReceitaFederal').dirty ||
+                            form.get('documentoReceitaFederal').touched)" class="alert alert-danger"> 
+                            Documento é Obrigatório 
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label for="foneMovel">Fone móvel</label>
+                        <input formControlName="foneMovel" [mask]="'(00) 00000-0000'" type="text" id="foneMovel"
+                            class="form-control" placeholder="Fone móvel">
+                        <div *ngIf="form.get('foneMovel').invalid && (form.get('foneMovel').dirty ||
+                            form.get('foneMovel').touched)" class="alert alert-danger"> 
+                            Celular é Obrigatório 
+                        </div>
                     </div>
                     <div class="form-group col-md-4">
-                      <label for="foneFixo">Fone fixo</label>
-                      <input formControlName="foneFixo" 
-                             [mask] = "'(00) 0000-0000'"
-                             type="text" 
-                             name="foneFixo" 
-                             id="foneFixo" 
-                             class="form-control" 
-                             placeholder="Fone fixo" 
-                             aria-describedby="helpId">
+                        <label for="foneFixo">Fone fixo</label>
+                        <input formControlName="foneFixo" [mask]="'(00) 0000-0000'" type="text" name="foneFixo"
+                            id="foneFixo" class="form-control" placeholder="Fone fixo" aria-describedby="helpId">
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-8">
-                      <label for="email">Email</label>
-                      <input formControlName="email" type="email" name="email" id="email" class="form-control" placeholder="Email" aria-describedby="helpId">
+                        <label for="email">Email</label>
+                        <input formControlName="email" type="email" name="email" id="email" class="form-control"
+                            placeholder="Email" aria-describedby="helpId">
                     </div>
                 </div>
 
-                <input class="btn btn-secondary" type="reset" (click)="onReset()" value="Cancelar">
-                <input
-                    [disabled]="!form.valid || !form.get('nome').dirty"
-                    class="btn btn-primary" 
-                    type="submit" 
-                    value="Salvar">
+                <div class="row">
+                    <input type="button" class="btn btn-primary mb-2" (click)="adicionarEnderecos()" value="Adicionar endereço">
+                </div>
+                    <section class="container mb-4 p-3" formArrayName="enderecos"
+                        *ngFor="let endereco of enderecoControls; let i = index;">
+                        <div [formGroupName]="i">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h4>Endereço {{i + 1}}</h4>
+                                </div>
+                                <div class="col-8 text-right">
+                                    <input 
+                                        type="button" 
+                                        class="btn btn-danger btn-sm" 
+                                        (click)="removerEndereco(i)"
+                                        value="Remove">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label>CEP</label>
+                                        <input type="text" class="form-control" formControlName="cep"
+                                            placeholder="CEP" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <label>Logradouro</label>
+                                        <input type="text" class="form-control" formControlName="logradouro"
+                                            placeholder="Rua Soniflores" />
+                                        <div *ngIf="endereco.get('logradouro').invalid && (endereco.get('logradouro').dirty ||
+                                            endereco.get('logradouro').touched)" class="alert alert-danger"> 
+                                            Logradouro é Obrigatório 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>    
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label>Número</label>
+                                        <input type="text" class="form-control" formControlName="numero"
+                                            placeholder="Nº" />
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Bairro</label>
+                                        <input type="text" class="form-control" formControlName="bairro"
+                                            placeholder="Seu bairro" />
+                                        <div *ngIf="endereco.get('bairro').invalid && (endereco.get('bairro').dirty ||
+                                            endereco.get('bairro').touched)" class="alert alert-danger"> 
+                                            Bairro é Obrigatório 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <label>Complemento</label>
+                                        <input type="text" class="form-control" formControlName="complemento"
+                                            placeholder="Complemento de endereço" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-5">
+                                    <div class="form-group">
+                                        <label>Cidade</label>
+                                        <input type="text" class="form-control" formControlName="cidade"
+                                            placeholder="Cidade das Flores" />
+                                        <div *ngIf="endereco.get('cidade').invalid && (endereco.get('cidade').dirty ||
+                                            endereco.get('cidade').touched)" class="alert alert-danger"> 
+                                            Cidade é Obrigatória 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label for="uf">UF</label>
+                                        <select formControlName="uf" 
+                                                class="custom-select" 
+                                                id="uf" 
+                                                [compareWith]="compararEstados" >
+                                            <option 
+                                                *ngFor="let uf of estados" 
+                                                [ngValue]="uf" >
+                                                    {{ uf }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+
+                    <input class="btn btn-secondary" type="reset" (click)="onReset()" value="Cancelar">
+                    <input [disabled]="!form.valid" class="btn btn-primary" type="submit"
+                        value="Salvar">
             </form>
         </div>
     </div>

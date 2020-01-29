@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../../router.animations';
 import { SharedService } from '../../../shared/services/shared.service';
-import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, NgForm, FormArray } from '@angular/forms';
 import { ClienteService } from '../../../shared/services/cliente.service';
 import { ActivatedRoute } from '@angular/router';
 import { ResponseApi } from '../../../shared/model/response-api';
 import { Cliente } from '../../../shared/model/cliente.model';
+import { Estados } from '../../../shared/utils/estados';
 
 @Component({
   selector: 'app-cliente-edicao',
@@ -22,7 +23,11 @@ export class ClienteEdicaoComponent implements OnInit {
   cliente: Cliente;
 
   form: FormGroup;
+  enderecosForm: FormArray;
   submitted = false;
+
+  uf: string;
+  estados: string[] = new Array<string>();
 
   constructor(
     private formBuider: FormBuilder,
@@ -38,7 +43,14 @@ export class ClienteEdicaoComponent implements OnInit {
     let id: string = this.route.snapshot.params['id'];
     if (id != undefined) {
       this.findById(id);
+    } else {
+      this.uf = 'BA';
     }
+    
+    Object.keys(Estados).forEach(key => {
+      this.estados.push(key);
+    });
+
   }
 
   inicializarFormulario() {
@@ -46,11 +58,38 @@ export class ClienteEdicaoComponent implements OnInit {
       id: [null],
       nome: ['', Validators.required],
       tipo: ['FISICA', Validators.required],
-      documentoReceitaFederal: [],
-      foneMovel:['', Validators.required],
-      foneFixo:[],
-      email: []
+      documentoReceitaFederal: ['', Validators.required],
+      foneMovel: ['', Validators.required],
+      foneFixo: [],
+      email: [],
+      enderecos: this.formBuider.array([this.novoEndereco()])
     });
+  }
+
+  novoEndereco(): FormGroup {
+    return this.formBuider.group({
+      id:'',
+      cep: '',
+      logradouro: ['',Validators.required],
+      numero: '',
+      bairro: ['',Validators.required],
+      complemento: '',
+      cidade: ['',Validators.required],
+      uf: ['BA',Validators.required],
+    });
+  }
+
+  adicionarEnderecos(): void {
+    this.enderecosForm = this.form.get('enderecos') as FormArray;
+    this.enderecosForm.push(this.novoEndereco());
+  }
+
+  removerEndereco(i: number) {
+    this.enderecosForm.removeAt(i);
+  }
+
+  get enderecoControls() {
+    return this.form.get('enderecos')['controls'];
   }
 
   get f() { return this.form.controls; }
@@ -74,7 +113,7 @@ export class ClienteEdicaoComponent implements OnInit {
     this.classCss = {
       'alert': true
     }
-    
+
     if (type === 'error' || type === 'erro' || type === 'errors') {
       type = 'danger'
     }
@@ -84,10 +123,10 @@ export class ClienteEdicaoComponent implements OnInit {
 
   salvar(form: NgForm) {
     this.message = {};
-    if(this.f.email.value != null){
+    if (this.f.email.value != null) {
       this.findByEmail(this.f.email.value);
     }
-    if(this.f.id.value != null){
+    if (this.f.id.value != null) {
       this.findById(this.f.id.value);
     }
 
@@ -100,7 +139,7 @@ export class ClienteEdicaoComponent implements OnInit {
       this.f.email.value,
       this.f.documentoReceitaFederal.value,
       this.f.tipo.value,
-      null
+      this.f.enderecos.value
     );
     this.clienteService.createOrUpdate(this.cliente).subscribe((responseApi: ResponseApi) => {
       this.cliente = null;
@@ -139,7 +178,11 @@ export class ClienteEdicaoComponent implements OnInit {
         responseApi['documentoReceitaFederal'],
         responseApi['tipo'],
         responseApi['enderecos']
-        );
+      );
+
+      for(let x = 0; x < this.cliente.enderecos.length -1; x++){
+        this.adicionarEnderecos();
+      }
       this.form.patchValue(this.cliente);
     },
       err => {
@@ -161,7 +204,7 @@ export class ClienteEdicaoComponent implements OnInit {
         responseApi['documentoReceitaFederal'],
         responseApi['tipo'],
         responseApi['enderecos']
-        );
+      );
       this.form.patchValue(this.cliente);
     },
       err => {
@@ -170,6 +213,10 @@ export class ClienteEdicaoComponent implements OnInit {
           text: err['error']['errors'][0]
         });
       });
+  }
+
+  compararEstados(objeto1, objeto2): boolean {
+    return objeto1 && objeto2 ? objeto1 === objeto2 : objeto1 === objeto2;
   }
 
 }
