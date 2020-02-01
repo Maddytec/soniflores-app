@@ -197,7 +197,7 @@
                     </section>
 
                     <input class="btn btn-secondary" type="reset" (click)="onReset()" value="Cancelar">
-                    <input [disabled]="!form.valid" class="btn btn-primary" type="submit"
+                    <input [disabled]="!form.valid" class="btn btn-primary" (click)="scrollTop()" type="submit"
                         value="Salvar">
             </form>
         </div>

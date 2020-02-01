@@ -219,4 +219,12 @@ export class ClienteEdicaoComponent implements OnInit {
     return objeto1 && objeto2 ? objeto1 === objeto2 : objeto1 === objeto2;
   }
 
+  scrollTop() {
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
+  }
+
 }
